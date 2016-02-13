@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+"""
+labnote
+
+Keith Hughitt <khughitt@umd.edu>
+"""
+import labnote
+
+def main():
+    """Generate HTML lab notebook"""
+    import os
+    from jinja2 import Environment, FileSystemLoader
+
+    # Get default args
+    conf = labnote.config.load_config()
+
+    # update default arguments with user-specified settings
+    parser = labnote.config.get_args()
+
+    # convert to a python dict and return without 
+    args = parser.parse_args()
+    args = dict((k, v) for k, v in list(vars(args).items()) if v is not None)
+
+    conf.update(args)
+
+    # Find matching lab notebook entries
+    categories = {}
+
+    # Find valid notebook entry directories
+    filepaths = labnote.notebook.find_valid_files(conf['root_dir'], 
+                                          conf['search_paths'],
+                                          conf['include_files'])
+
+    # Iterate over matches files and create notebook entries
+    for filepath in filepaths:
+        filename = os.path.basename(filepath)
+        sub_dir = os.path.basename(os.path.dirname(filepath))
+
+        entry = labnote.notebook.create_entry(filename, filepath)
+
+        # determine category to use
+        category = labnote.notebook.get_category(sub_dir, conf['categories'])
+        
+        # add entry to master dictionary
+        if category not in categories:
+            categories[category] = []
+        categories[category].append(entry)
+
+
+    ## Capture our current directory
+    pwd = os.path.dirname(os.path.abspath(__file__))
+    template_dir = os.path.join(pwd, 'templates')
+    env = Environment(loader=FileSystemLoader(template_dir), trim_blocks=True)
+
+    template = env.get_template('index.html')
+    html = template.render(author=conf['author'], title=conf['title'],
+                        email=conf['email'], categories=categories)
+
+    with open('index.html', 'w') as outfile:
+        outfile.write(html)
+
+if __name__ == '__main__':
+    main()
