@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{ author }} - {{ title }}</title>
+    <meta charset="utf-8" />
+    <link rel='stylesheet' href='resources/css/reset.css' />
+    <link rel='stylesheet' href='resources/css/notebook.css' />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+</head>
+<body>
+<div id='main'>
+
+<!-- HEADER -->
+<div id='header'>
+    <h1>{{ title }}</h1>
+    <a href='mailto: {{ email }}'><h2>{{ author }}</h2></a>
+    <h4>Last update: {{ date }}</h4>
+</div>
+<hr />
+
+<!-- NOTEBOOK BEGIN -->
+{% for category in categories %}
+<h2 class='section-header'>{{ category }}</h2>
+<ul class='section'>
+    {% for entry in category %}
+    <li>
+        <time>{{ entry.date }}</time>
+        <a href='{{ entry.url }}'>{{ entry.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
+{% endfor %}
+</ul>
+
+<br /><br />
+
+</div>
+</body>
+</html>

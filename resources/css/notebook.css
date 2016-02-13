@@ -1,0 +1,63 @@
+/** Lab notebook styles */
+body {
+    text-align: center;
+}
+
+/** http://jsfiddle.net/chriscoyier/GaEzp/35/ */
+hr {
+    border: 0;
+    height: 1px;
+    background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    opacity: 0.75;
+}
+
+/** Header */
+#header {
+    margin: 0 auto;
+    padding: 25px 0;
+    text-align: center;
+}
+#header h1 {
+    font-family: "Droid sans mono", "monospace", sans-serif;
+    font-size: 72px;
+    /**color: #1C3F5F;
+    text-shadow: #999 2px 2px 3px;*/
+}
+#header h2 {
+    font-family: "Lato", ubuntu, sans-serif;
+    font-size: 30px;
+}
+
+/** Main contents */
+#main {
+    width: 800px;
+    text-align: left;
+    margin: auto;
+}
+
+/** Subsection */
+.section-header {
+    font-family: ubuntu, verdana, sans-serif;
+    font-weight: 700;
+    font-size: 26px;
+    color: #666;
+    margin: 25px 0 5px 0;
+}
+
+/** Notebook entry */
+.section time {
+    font-family: 'courier new', monospace;
+    margin-right: 10px;
+}
+img.slideshow {
+    content: url(../img/libreoffice-impress.png);
+    width: 16px;
+    height: 16px;
+}
+
+/** Link styles */
+a, a:visited { color: #2D2D2D; text-decoration: none; }
+a:hover, a:visited:hover { color: #ff5900; }
