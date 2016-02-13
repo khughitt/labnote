@@ -22,12 +22,12 @@
 {% for category in categories %}
 <h2 class='section-header'>{{ category }}</h2>
 <ul class='section'>
-    {% for entry in category %}
+    {% for entry in categories[category] %}
     <li>
-        <time>{{ entry.date }}</time>
-        <a href='{{ entry.url }}'>{{ entry.title }}</a>
+        <time>{{ entry["date"] }}</time>
+        <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
     </li>
-    {% endfor %}
+{% endfor %}
 </ul>
 {% endfor %}
 </ul>
