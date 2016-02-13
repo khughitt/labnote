@@ -1,0 +1,11 @@
+---
+# General information
+title: Lab Notebook
+author: Charles Darwin
+email: cdarwin@geolsoc.org.uk
+
+# Notebook contents
+search_paths:
+  - /home/cdarwin/research/*/*
+include_files: ['README.html', '*.py', '*.ipynb']
+
