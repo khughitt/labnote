@@ -11,6 +11,7 @@ def main():
     """Generate HTML lab notebook"""
     import os
     import shutil
+    import time
     from pkg_resources import resource_filename, Requirement
     from jinja2 import Environment, PackageLoader
 
@@ -55,10 +56,14 @@ def main():
     # Load Jinja2 template
     env = Environment(loader=PackageLoader('labnote', 'templates'))
 
+    # Get current date string
+    date = time.strftime('%Y/%m/%d')
+
     # Render template
     template = env.get_template('index.html')
     html = template.render(author=conf['author'], title=conf['title'],
-                        email=conf['email'], categories=categories)
+                           email=conf['email'], date=date,
+                           categories=categories)
 
     print("- Generating notebook HTML")
 
