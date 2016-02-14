@@ -37,10 +37,18 @@ def get_category(dir_name, categories, default='Other'):
             return(category)
     return(default) 
 
+def get_date_modified(filepath):
+    """Determines the date that the file was last modified"""
+    import datetime
+    import os
+
+    mtime = os.path.getmtime(filepath)
+    return datetime.datetime.fromtimestamp(mtime).strftime('%Y/%m/%d')
+
 def create_entry(title, filepath, root_dir):
     """Create a lab notebook entry dict"""
     return {
         'title': title,
-        'date': '2016/02/13',
+        'date': get_date_modified(filepath),
         'url': filepath.replace(root_dir, '')
     }
