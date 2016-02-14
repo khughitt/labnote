@@ -10,7 +10,7 @@ def load_config():
     config = _defaults()
 
     # Load user config file if it exists
-    config_file = os.path.expanduser("~/.labnote/config.yaml")
+    config_file = os.path.expanduser("~/.config/labnote/config.yml")
 
     if os.path.isfile(config_file):
         with open(config_file) as fp:
@@ -24,7 +24,14 @@ def get_args():
     parser = ArgumentParser(description='Generate HTML lab notebook.')
 
     parser.add_argument('-c', '--config',
-                        help=('Input configuration filepath.'))
+                        help=('Input configuration filepath. (Default: ' 
+                              '$HOME/.config/labnote/config.yml if it exists.)'))
+    parser.add_argument('-d', '--input-dir', dest='input_dir',
+                        help=('Input directory containing notebook entries. '
+                              '(Default: /var/www/research)'))
+    parser.add_argument('-o', '--output-dir', dest='output_dir',
+                        help=('Location to output notebook HTML to. '
+                              '(Default: /var/www/research)'))
 
     return parser
 
@@ -35,7 +42,8 @@ def _defaults():
         'author': '',
         'email':  '',
         'title': 'Lab Notebook',
-        'root_dir': '/var/www/research',
+        'input_dir': '/var/www/research',
+        'output_dir': '/var/www/research',
         'include_files':  ['*.html', '*.py', '*.ipynb'],
         'search_paths': ['*'],
         'categories': {}

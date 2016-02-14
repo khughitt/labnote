@@ -10,9 +10,10 @@ import labnote
 def main():
     """Generate HTML lab notebook"""
     import os
-    from pkg_resources import resource_filename
-    #from jinja2 import Environment, FileSystemLoader
+    from pkg_resources import resource_string
     from jinja2 import Environment, PackageLoader
+
+    print("- Loading configuration")
 
     # Get default args
     conf = labnote.config.load_config()
@@ -30,7 +31,7 @@ def main():
     categories = {}
 
     # Find valid notebook entry directories
-    filepaths = labnote.notebook.find_valid_files(conf['root_dir'], 
+    filepaths = labnote.notebook.find_valid_files(conf['input_dir'], 
                                           conf['search_paths'],
                                           conf['include_files'])
 
@@ -40,7 +41,7 @@ def main():
         sub_dir = os.path.basename(os.path.dirname(filepath))
 
         entry = labnote.notebook.create_entry(filename, filepath,
-                                              conf['root_dir'])
+                                              conf['input_dir'])
 
         # determine category to use
         category = labnote.notebook.get_category(sub_dir, conf['categories'])
@@ -50,20 +51,29 @@ def main():
             categories[category] = []
         categories[category].append(entry)
 
-
-    ## Capture our current directory
-    #pwd = os.path.dirname(os.path.abspath(__file__))
-    #template_dir = os.path.join(pwd, 'templates')
-    #template_dir = resource_filename(__name__, 'templates')
-    #env = Environment(loader=FileSystemLoader(template_dir), trim_blocks=True)
+    # Load Jinja2 template
     env = Environment(loader=PackageLoader('labnote', 'templates'))
 
+    # Render template
     template = env.get_template('index.html')
     html = template.render(author=conf['author'], title=conf['title'],
                         email=conf['email'], categories=categories)
 
-    with open('index.html', 'w') as outfile:
-        outfile.write(html)
+    print("- Generating notebook HTML")
+
+    # Output notebook
+    outfile = os.path.join(conf['output_dir'], 'index.html')
+    with open(outfile, 'w') as fp:
+        fp.write(html)
+
+    print("- Saving notebook to %s" % conf['output_dir'])
+
+    # Copy CSS and image resources to output directory
+    resources = resource_string(__name__, 'resources')
+    print(resources)
+    print(os.path.isdir(resources))
+
+    print("- Finished")
 
 if __name__ == '__main__':
     main()

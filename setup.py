@@ -40,5 +40,3 @@ setup(
     version="0.1"
 )
 
-#package_data={'':['*.html', '*.yaml', '*.css', '*.png', '*.jpg']},
-#package_data={'labnote':['*.html', '*.yaml', '*.css', '*.png', '*.jpg']},
