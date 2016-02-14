@@ -1,4 +1,0 @@
-include doc/*
-include templates/*
-include resources/css/*
-include resources/img/*
