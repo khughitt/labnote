@@ -28,15 +28,17 @@ def find_valid_files(root_dir, search_paths, include_files):
 
 def get_category(dir_name, categories, default='Other'):
     """Determines category for a given analysis"""
+    import fnmatch
+
     for category,patterns in categories.items():
         if any(fnmatch.fnmatch(dir_name, p) for p in patterns):
             return(category)
     return(default) 
 
-def create_entry(title, filepath):
+def create_entry(title, filepath, root_dir):
     """Create a lab notebook entry dict"""
     return {
         'title': title,
         'date': '2016/02/13',
-        'url': filepath.replace(conf['root_dir'], '')
+        'url': filepath.replace(root_dir, '')
     }

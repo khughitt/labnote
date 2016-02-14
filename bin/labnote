@@ -10,7 +10,9 @@ import labnote
 def main():
     """Generate HTML lab notebook"""
     import os
-    from jinja2 import Environment, FileSystemLoader
+    from pkg_resources import resource_filename
+    #from jinja2 import Environment, FileSystemLoader
+    from jinja2 import Environment, PackageLoader
 
     # Get default args
     conf = labnote.config.load_config()
@@ -37,7 +39,8 @@ def main():
         filename = os.path.basename(filepath)
         sub_dir = os.path.basename(os.path.dirname(filepath))
 
-        entry = labnote.notebook.create_entry(filename, filepath)
+        entry = labnote.notebook.create_entry(filename, filepath,
+                                              conf['root_dir'])
 
         # determine category to use
         category = labnote.notebook.get_category(sub_dir, conf['categories'])
@@ -49,9 +52,11 @@ def main():
 
 
     ## Capture our current directory
-    pwd = os.path.dirname(os.path.abspath(__file__))
-    template_dir = os.path.join(pwd, 'templates')
-    env = Environment(loader=FileSystemLoader(template_dir), trim_blocks=True)
+    #pwd = os.path.dirname(os.path.abspath(__file__))
+    #template_dir = os.path.join(pwd, 'templates')
+    #template_dir = resource_filename(__name__, 'templates')
+    #env = Environment(loader=FileSystemLoader(template_dir), trim_blocks=True)
+    env = Environment(loader=PackageLoader('labnote', 'templates'))
 
     template = env.get_template('index.html')
     html = template.render(author=conf['author'], title=conf['title'],

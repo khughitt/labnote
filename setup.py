@@ -24,17 +24,19 @@ setup(
     author_email="khughitt@umd.edu",
     classifiers=CLASSIFIERS,
     description=DOCLINES[0],
-    install_requires=['jinja2', 'yaml'],
+    include_package_data=True,
+    install_requires=['jinja2', 'PyYAML'],
     license="BSD",
     long_description="\n".join(DOCLINES[2:]),
     maintainer="Keith Hughitt",
     maintainer_email="khughitt@umd.edu",
     name="labnote",
     packages=find_packages(),
-    package_data={'':['*.yaml', '*.css', '*.png', '*.jpg']},
     platforms=["Linux", "Solaris", "Mac OS-X", "Unix"],
     provides=['labnote'],
     scripts=['bin/labnote'],
     url="https://github.com/khughitt/labnote",
     version="0.1"
 )
+
+#package_data={'labnote':['*.html', '*.yaml', '*.css', '*.png', '*.jpg']},
