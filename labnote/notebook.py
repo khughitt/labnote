@@ -11,7 +11,7 @@ def find_valid_files(root_dir, search_paths, include_files):
         # Iterate over sub-directories in each search path
         parent_dir = os.path.join(root_dir, search_path)
 
-        print("Scanning for notebook entries in %s" % parent_dir)
+        print(" * Scanning for notebook entries in %s" % parent_dir)
 
         for sub_dir in glob.glob(parent_dir):
             if not os.path.isdir(sub_dir):

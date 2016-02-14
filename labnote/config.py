@@ -10,7 +10,12 @@ def load_config():
     config = _defaults()
 
     # Load user config file if it exists
-    config_file = os.path.expanduser("~/.config/labnote/config.yml")
+    config_dir = os.path.expanduser("~/.config/labnote/")
+
+    # Check for config.yaml or config.yml
+    config_file = os.path.join(config_dir, 'config.yml')
+    if not os.path.isfile(config_file):
+        config_file = os.path.join(config_dir, 'config.yaml')
 
     if os.path.isfile(config_file):
         with open(config_file) as fp:

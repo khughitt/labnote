@@ -10,7 +10,8 @@ import labnote
 def main():
     """Generate HTML lab notebook"""
     import os
-    from pkg_resources import resource_string
+    import shutil
+    from pkg_resources import resource_filename, Requirement
     from jinja2 import Environment, PackageLoader
 
     print("- Loading configuration")
@@ -68,10 +69,17 @@ def main():
 
     print("- Saving notebook to %s" % conf['output_dir'])
 
-    # Copy CSS and image resources to output directory
-    resources = resource_string(__name__, 'resources')
-    print(resources)
-    print(os.path.isdir(resources))
+    # Path to resources/ directory
+    resources = resource_filename(Requirement.parse('labnote'),
+                                  os.path.join('labnote', 'resources'))
+
+    # Copy CSS and image resources to output directory if it does not already
+    # exist.
+    resource_dir = os.path.join(conf['output_dir'], 'resources')
+
+    if not os.path.isdir(resource_dir):
+        shutil.copytree(resources, resource_dir,
+                        ignore=shutil.ignore_patterns("__init__.py", "__pycache__"))
 
     print("- Finished")
 
