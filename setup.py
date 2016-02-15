@@ -24,7 +24,7 @@ setup(
     author_email="khughitt@umd.edu",
     classifiers=CLASSIFIERS,
     description=DOCLINES[0],
-    install_requires=['jinja2', 'PyYAML', 'setuptools-git'],
+    install_requires=['beautifulsoup4', 'jinja2', 'PyYAML', 'setuptools-git'],
     include_package_data=True,
     license="BSD",
     long_description="\n".join(DOCLINES[2:]),

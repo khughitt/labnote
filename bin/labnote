@@ -39,11 +39,11 @@ def main():
 
     # Iterate over matches files and create notebook entries
     for filepath in filepaths:
+        # Entry directory and filename
         filename = os.path.basename(filepath)
         sub_dir = os.path.basename(os.path.dirname(filepath))
 
-        entry = labnote.notebook.create_entry(filename, filepath,
-                                              conf['input_dir'])
+        entry = labnote.notebook.create_entry(filepath, conf['input_dir'])
 
         # determine category to use
         category = labnote.notebook.get_category(sub_dir, conf['categories'])

@@ -11,7 +11,7 @@ def find_valid_files(root_dir, search_paths, include_files):
         # Iterate over sub-directories in each search path
         parent_dir = os.path.join(root_dir, search_path)
 
-        print(" * Scanning for notebook entries in %s" % parent_dir)
+        print("- Scanning for notebook entries in %s" % parent_dir)
 
         for sub_dir in glob.glob(parent_dir):
             if not os.path.isdir(sub_dir):
@@ -45,10 +45,32 @@ def get_date_modified(filepath):
     mtime = os.path.getmtime(filepath)
     return datetime.datetime.fromtimestamp(mtime).strftime('%Y/%m/%d')
 
-def create_entry(title, filepath, root_dir):
+def get_entry_title(filepath):
+    """Determine title to use for the specified notebook entry"""
+    import os
+    from bs4 import BeautifulSoup
+
+    # file extension
+    ext = os.path.splitext(filepath)[-1].lower()
+
+    # TODO: extend to support ipynb parsing; 
+    # split into separate functions
+
+    print(" * Adding %s" % filepath)
+
+    # HTML
+    if ext == '.html':
+        with open(filepath) as fp:
+            title = BeautifulSoup(fp, 'html.parser').title.string
+        return title
+    else:
+        # Default (filename)
+        return os.path.basename(filepath)
+
+def create_entry(filepath, root_dir):
     """Create a lab notebook entry dict"""
     return {
-        'title': title,
+        'title': get_entry_title(filepath),
         'date': get_date_modified(filepath),
         'url': filepath.replace(root_dir, '')
     }
