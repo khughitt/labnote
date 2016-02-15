@@ -78,7 +78,11 @@ def parse_python_title(filepath):
 
     with open(filepath) as fp:
         # load python code
-        mod = ast.parse(''.join(fp))
+        try:
+            mod = ast.parse(''.join(fp))
+        except SyntaxError:
+            # Non-standard Python code (e.g. Snakemake)
+            return os.path.basename(filepath)
 
         # grab docstring if it exists
         docstring = ast.get_docstring(mod)
@@ -86,7 +90,7 @@ def parse_python_title(filepath):
         if docstring is not None:
             # extract first line from docstring
             return docstring.split('\n')[0]
-        else
+        else:
             return os.path.basename(filepath)
 
 def create_entry(filepath, root_dir, url_prefix):
