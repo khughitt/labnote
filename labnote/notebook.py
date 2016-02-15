@@ -64,9 +64,30 @@ def get_entry_title(filepath):
             title = BeautifulSoup(fp, 'html.parser').title.string
         if title is not None:
             return title
+    elif ext == '.py':
+        return parse_python_title(filepath)
 
     # Default (filename)
     return os.path.basename(filepath)
+
+def parse_python_title(filepath):
+    """Attempts to extract the first line of a python file docstring to use as
+    a notebook entry title"""
+    import ast
+    import os
+
+    with open(filepath) as fp:
+        # load python code
+        mod = ast.parse(''.join(fp))
+
+        # grab docstring if it exists
+        docstring = ast.get_docstring(mod)
+
+        if docstring is not None:
+            # extract first line from docstring
+            return docstring.split('\n')[0]
+        else
+            return os.path.basename(filepath)
 
 def create_entry(filepath, root_dir, url_prefix):
     """Creates a lab notebook entry dictionary.
