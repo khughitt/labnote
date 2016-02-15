@@ -12,8 +12,9 @@ def main():
     import os
     import shutil
     import time
-    from pkg_resources import resource_filename, Requirement
     from jinja2 import Environment, PackageLoader
+    from operator import itemgetter
+    from pkg_resources import resource_filename, Requirement
 
     print("- Loading configuration")
 
@@ -53,6 +54,11 @@ def main():
         if category not in categories:
             categories[category] = []
         categories[category].append(entry)
+
+    # Show most recently modified entries first
+    for category in categories:
+        categories[category] = sorted(categories[category],
+                                      key=itemgetter('date'), reverse=True)    
 
     # Load Jinja2 template
     env = Environment(loader=PackageLoader('labnote', 'templates'))

@@ -86,6 +86,8 @@ def create_entry(filepath, root_dir, url_prefix):
         A dict containing the relative metadata and filepaths corresponding to
         a single lab notebook entry.
     """
+    import os
+
     return {
         'title': get_entry_title(filepath),
         'date': get_date_modified(filepath),
