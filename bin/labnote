@@ -43,7 +43,8 @@ def main():
         filename = os.path.basename(filepath)
         sub_dir = os.path.basename(os.path.dirname(filepath))
 
-        entry = labnote.notebook.create_entry(filepath, conf['input_dir'])
+        entry = labnote.notebook.create_entry(filepath, conf['input_dir'],
+                                              conf['url_prefix'])
 
         # determine category to use
         category = labnote.notebook.get_category(sub_dir, conf['categories'])

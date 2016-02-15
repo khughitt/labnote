@@ -37,6 +37,8 @@ def get_args():
     parser.add_argument('-o', '--output-dir', dest='output_dir',
                         help=('Location to output notebook HTML to. '
                               '(Default: /var/www/research)'))
+    parser.add_argument('-u', '--url-prefix', dest='url_prefix',
+                        help=('Prefix to add to each entry URL. (Default: "")'))
 
     return parser
 
@@ -51,5 +53,6 @@ def _defaults():
         'output_dir': '/var/www/research',
         'include_files':  ['*.html', '*.py', '*.ipynb'],
         'search_paths': ['*'],
-        'categories': {}
+        'categories': {},
+        'url_prefix': ''
     }

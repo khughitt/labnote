@@ -67,10 +67,27 @@ def get_entry_title(filepath):
         # Default (filename)
         return os.path.basename(filepath)
 
-def create_entry(filepath, root_dir):
-    """Create a lab notebook entry dict"""
+def create_entry(filepath, root_dir, url_prefix):
+    """Creates a lab notebook entry dictionary.
+   
+    Parses the relevant file corresponding to the notebook entry and attempts
+    to determine an appropriate title to use for the entry, the date the
+    analysis was last modified, etc. and stores all of the relevant information
+    as a dict instance.
+    
+    Args:
+        filepath: Path to the file for which the lab notebook entry is being
+            created.
+        root_dir: The root directory from which the file was found. This is
+            removed from the final path in order to generate a relative URL.
+        url_prefix: An optional URL prefix to be preprended to the entry.
+
+    Returns:
+        A dict containing the relative metadata and filepaths corresponding to
+        a single lab notebook entry.
+    """
     return {
         'title': get_entry_title(filepath),
         'date': get_date_modified(filepath),
-        'url': filepath.replace(root_dir, '')
+        'url': os.path.join(url_prefix, filepath.replace(root_dir, ''))
     }
