@@ -62,10 +62,11 @@ def get_entry_title(filepath):
     if ext == '.html':
         with open(filepath) as fp:
             title = BeautifulSoup(fp, 'html.parser').title.string
-        return title
-    else:
-        # Default (filename)
-        return os.path.basename(filepath)
+        if title is not None:
+            return title
+
+    # Default (filename)
+    return os.path.basename(filepath)
 
 def create_entry(filepath, root_dir, url_prefix):
     """Creates a lab notebook entry dictionary.
