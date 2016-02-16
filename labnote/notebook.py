@@ -1,19 +1,36 @@
-def find_valid_files(root_dir, search_paths, include_files):
+def find_valid_files(input_dirs, include_files):
     """Search specified locations for files that corresponding to lab notebook
-       entries"""
+       entries.
+
+    The lab notebook consists of a collection of entries, each corresponding to
+    a particular analysis, script, etc. Labnote searches the specified input
+    paths for any files matching the allowed file types (e.g. *.html, *.py),
+    and adds an entry for each item in the resulting notebook. This is the
+    function which scans for acceptable files to build entries from, and
+    produces a list of filepaths which can then be converted to entry dicts.
+       
+    Args
+    ----
+        input_dirs: A list of search paths to be scanned for notebook entries.
+        include_files: A list of wildcard expressions indicating the types of
+            files which should be included in the notebook.
+
+    Returns
+    -------
+        A list of filepaths corresponding to items that should form the basis
+        of the lab notebook entries.
+    """
     import fnmatch
     import glob
     import os
 
     filepaths = []
 
-    for search_path in search_paths:
-        # Iterate over sub-directories in each search path
-        parent_dir = os.path.join(root_dir, search_path)
+    # Iterate over sub-directories in each search path
+    for input_dir in input_dirs:
+        print("- Scanning for notebook entries in %s" % input_dir)
 
-        print("- Scanning for notebook entries in %s" % parent_dir)
-
-        for sub_dir in glob.glob(parent_dir):
+        for sub_dir in glob.glob(input_dir):
             if not os.path.isdir(sub_dir):
                 continue
             for filename in os.listdir(sub_dir):
@@ -93,7 +110,7 @@ def parse_python_title(filepath):
         else:
             return os.path.basename(filepath)
 
-def create_entry(filepath, root_dir, url_prefix):
+def create_entry(filepath, output_dir, url_prefix):
     """Creates a lab notebook entry dictionary.
    
     Parses the relevant file corresponding to the notebook entry and attempts
@@ -104,7 +121,7 @@ def create_entry(filepath, root_dir, url_prefix):
     Args:
         filepath: Path to the file for which the lab notebook entry is being
             created.
-        root_dir: The root directory from which the file was found. This is
+        output_dir: The notebook HTML output directory. This will be
             removed from the final path in order to generate a relative URL.
         url_prefix: An optional URL prefix to be preprended to the entry.
 
@@ -117,5 +134,5 @@ def create_entry(filepath, root_dir, url_prefix):
     return {
         'title': get_entry_title(filepath),
         'date': get_date_modified(filepath),
-        'url': os.path.join(url_prefix, filepath.replace(root_dir, ''))
+        'url': os.path.join(url_prefix, filepath.replace(output_dir, ''))
     }

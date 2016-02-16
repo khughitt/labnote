@@ -29,11 +29,11 @@ def get_args():
     parser = ArgumentParser(description='Generate HTML lab notebook.')
 
     parser.add_argument('-c', '--config',
-                        help=('Input configuration filepath. (Default: ' 
-                              '$HOME/.config/labnote/config.yml if it exists.)'))
-    parser.add_argument('-d', '--input-dir', dest='input_dir',
-                        help=('Input directory containing notebook entries. '
-                              '(Default: /var/www/research)'))
+                        help=('Configuration filepath. (Will use configuration' 
+                              'in $HOME/.config/labnote/config.yml, if it exists.)'))
+    parser.add_argument('-d', '--input-dirs', dest='input_dirs', nargs='+',
+                        help=('Input directory(s) containing notebook entries. '
+                              '(Default: /var/www/research/*)'))
     parser.add_argument('-o', '--output-dir', dest='output_dir',
                         help=('Location to output notebook HTML to. '
                               '(Default: /var/www/research)'))
@@ -49,10 +49,9 @@ def _defaults():
         'author': '',
         'email':  '',
         'title': 'Lab Notebook',
-        'input_dir': '/var/www/research',
+        'input_dirs': ['/var/www/research/*'],
         'output_dir': '/var/www/research',
         'include_files':  ['*.html', '*.py', '*.ipynb'],
-        'search_paths': ['*'],
         'categories': {},
         'url_prefix': ''
     }
