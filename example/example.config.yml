@@ -16,6 +16,6 @@ include_files: ['*.html', '*.py', '*.txt']
 
 # Research categories
 categories:
-  'L. major': ['lm']  
-  'L. braziliensis': ['lb']  
+  'Finches': ['finch', 'natural-selection']  
+  'Barnacles': ['cirripede']  
 
