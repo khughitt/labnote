@@ -48,8 +48,11 @@ Development
 - Update README.md
 - Update example configuration
 - Add a working example to examples directory
-- Search each README.html, etc. file for title
-- Sort output categories/entries by last date modified
 - Add option to print default config.yml
-- Add support for customizing display of entries using .entry.yml files
+- Add support for customizing display of entries using .entry.yml files for a
+  given directory:
+    - All specifying one or more entries to include for the directory
+    - For each entry, let user specify filename, title, description, etc.
+    - Allow for optional thumbnail to be specified.
+
 
