@@ -33,7 +33,7 @@ def get_category(dir_name, categories, default='Other'):
     import fnmatch
 
     for category,patterns in categories.items():
-        if any(fnmatch.fnmatch(dir_name, p) for p in patterns):
+        if any(fnmatch.fnmatch(dir_name, ("*%s*" % p)) for p in patterns):
             return(category)
     return(default) 
 

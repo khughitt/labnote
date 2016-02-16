@@ -1,6 +1,7 @@
 Overview
 --------
 
+
 Installation
 ------------
 
@@ -10,7 +11,6 @@ To use labnote, you must have a recent version of Python ([Python 3 (3.3+)](http
 available on your machine.
 
 Additionally, labnote requires the following Python libraries:
-
 
 - [Beautiful Soup 4](http://www.crummy.com/software/BeautifulSoup/)
 - [Jinja2](http://jinja.pocoo.org/docs/dev/)
@@ -49,10 +49,13 @@ Development
 - Update example configuration
 - Add a working example to examples directory
 - Add option to print default config.yml
+- Check for git revision and link to repo if on Github
 - Add support for customizing display of entries using .entry.yml files for a
   given directory:
     - All specifying one or more entries to include for the directory
     - For each entry, let user specify filename, title, description, etc.
     - Allow for optional thumbnail to be specified.
+    - Allow links to external files and URLs to be included (e.g.
+      presentations, papers, etc.)
 
 

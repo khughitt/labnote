@@ -1,0 +1,24 @@
+---
+# General information
+title: Lab Notebook
+author: C. Darwin
+email: cdarwin@geolsoc.org.uk
+
+# Directory containing notebook entries
+input_dir: /home/cdarwin/research/
+
+# Directory where notebook HTML should be saved to
+output_dir: /home/cdarwin/research/
+
+# Sub-directories to search
+search_paths:
+  - */*
+
+# File types to include
+include_files: ['*.html', '*.py', '*.txt']
+
+# Research categories
+categories:
+  'L. major': ['lm']  
+  'L. braziliensis': ['lb']  
+
