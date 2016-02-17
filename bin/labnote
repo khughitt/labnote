@@ -10,6 +10,7 @@ import labnote
 def main():
     """Generate HTML lab notebook"""
     import os
+    import sys
     import shutil
     import time
     from jinja2 import Environment, PackageLoader
@@ -29,6 +30,14 @@ def main():
     args = dict((k, v) for k, v in list(vars(args).items()) if v is not None)
 
     conf.update(args)
+
+    # Check for required parameters
+    if conf['input_dirs'] is None:
+        print("Error: missing input directory(s).")
+        sys.exit()
+    elif conf['output_dir'] is None:
+        print("Error: missing output directory.")
+        sys.exit()
 
     # Find matching lab notebook entries
     categories = {}

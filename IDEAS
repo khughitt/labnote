@@ -3,4 +3,4 @@ Some possible features to implement in the future:
 1. Use xdg library to lookup XDG_CONFIG_HOME and check for labnote config there
    (Linux), or standard locations on Mac (e.g.
    http://stackoverflow.com/questions/3373948/equivalents-of-xdg-config-home-and-xdg-data-home-on-mac-os-x)
-
+2. Add option to output Markdown (e.g. for hosting on  Github)

@@ -17,6 +17,7 @@ def load_config():
     if not os.path.isfile(config_file):
         config_file = os.path.join(config_dir, 'config.yaml')
 
+    # If user config exists, use it to overwrite defaults
     if os.path.isfile(config_file):
         with open(config_file) as fp:
             config.update(yaml.load(fp))
@@ -31,12 +32,10 @@ def get_args():
     parser.add_argument('-c', '--config',
                         help=('Configuration filepath. (Will use configuration' 
                               'in $HOME/.config/labnote/config.yml, if it exists.)'))
-    parser.add_argument('-d', '--input-dirs', dest='input_dirs', nargs='+',
-                        help=('Input directory(s) containing notebook entries. '
-                              '(Default: /var/www/research/*)'))
+    parser.add_argument('-i', '--input-dirs', dest='input_dirs', nargs='+',
+                        help=('Input directory(s) containing notebook entries.'))
     parser.add_argument('-o', '--output-dir', dest='output_dir',
-                        help=('Location to output notebook HTML to. '
-                              '(Default: /var/www/research)'))
+                        help=('Location to output notebook HTML to.'))
     parser.add_argument('-u', '--url-prefix', dest='url_prefix',
                         help=('Prefix to add to each entry URL. (Default: "")'))
 
@@ -49,8 +48,8 @@ def _defaults():
         'author': '',
         'email':  '',
         'title': 'Lab Notebook',
-        'input_dirs': ['/var/www/research/*'],
-        'output_dir': '/var/www/research',
+        'input_dirs': None,
+        'output_dir': None,
         'include_files':  ['*.html', '*.py', '*.ipynb'],
         'categories': {},
         'url_prefix': ''
