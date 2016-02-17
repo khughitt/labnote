@@ -17,25 +17,28 @@ def main():
     from operator import itemgetter
     from pkg_resources import resource_filename, Requirement
 
-    print("- Loading configuration")
+    print("- Starting Labnote")
 
-    # Get default args
-    conf = labnote.config.load_config()
-
-    # update default arguments with user-specified settings
+    # Load configuration
     parser = labnote.config.get_args()
 
-    # convert to a python dict and return without 
+    # Convert input arguments to a python dict
     args = parser.parse_args()
     args = dict((k, v) for k, v in list(vars(args).items()) if v is not None)
 
+    # Get default args
+    conf = labnote.config.load_config(args)
+    
+    # Update default arguments with user-specified settings
     conf.update(args)
 
     # Check for required parameters
-    if conf['input_dirs'] is None:
+    if 'input_dirs' not in conf:
+        parser.print_help()
         print("Error: missing input directory(s).")
         sys.exit()
-    elif conf['output_dir'] is None:
+    elif 'output_dir' not in conf:
+        parser.print_help()
         print("Error: missing output directory.")
         sys.exit()
 

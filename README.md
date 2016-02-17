@@ -27,6 +27,14 @@ To install labnote using [pip](https://docs.python.org/3.5/installing/index.html
 pip install https://github.com/khughitt/labnote/archive/master.zip
 ```
 
+### Testing installation
+
+To generate the example notebook, cd to the labnote source directory and run:
+
+```
+labnote -c example/example.config.yml -i example/research/*/* -o example/
+```
+
 ### Automating notebook generation
 
 Configuration

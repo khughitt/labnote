@@ -1,26 +1,40 @@
 """
 Configuration handling logic for labnote.
 """
-def load_config():
+def load_config(args):
     """Loads labnote configuration"""
     import os
+    import sys
     import yaml
 
     # Default configuration options
     config = _defaults()
 
-    # Load user config file if it exists
-    config_dir = os.path.expanduser("~/.config/labnote/")
+    # If user specified a configuration filepath in the command, use that path
+    if 'config' in args:
+        if not os.path.isfile(args['config']):
+            print("Invalid configuration path specified: %s" % args['config'])
+            sys.exit()
 
-    # Check for config.yaml or config.yml
-    config_file = os.path.join(config_dir, 'config.yml')
-    if not os.path.isfile(config_file):
-        config_file = os.path.join(config_dir, 'config.yaml')
+        print("- Using configuration: %s" % args['config'])
 
-    # If user config exists, use it to overwrite defaults
-    if os.path.isfile(config_file):
-        with open(config_file) as fp:
+        # Load config specified from run arguments
+        with open(args['config']) as fp:
             config.update(yaml.load(fp))
+    else:
+        # Otherwise, load user config file if it exists
+        config_dir = os.path.expanduser("~/.config/labnote/")
+
+        # Check for config.yaml or config.yml
+        config_file = os.path.join(config_dir, 'config.yml')
+        if not os.path.isfile(config_file):
+            config_file = os.path.join(config_dir, 'config.yaml')
+
+        # If user config exists, use it to overwrite defaults
+        if os.path.isfile(config_file):
+            print("- Using configuration: %s" % config_file)
+            with open(config_file) as fp:
+                config.update(yaml.load(fp))
 
     return config
 
