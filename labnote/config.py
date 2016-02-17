@@ -1,11 +1,13 @@
 """
 Configuration handling logic for labnote.
 """
+import yaml
+from collections import OrderedDict
+
 def load_config(args):
     """Loads labnote configuration"""
     import os
     import sys
-    import yaml
 
     # Default configuration options
     config = _defaults()
@@ -20,7 +22,7 @@ def load_config(args):
 
         # Load config specified from run arguments
         with open(args['config']) as fp:
-            config.update(yaml.load(fp))
+            config.update(ordered_load(fp))
     else:
         # Otherwise, load user config file if it exists
         config_dir = os.path.expanduser("~/.config/labnote/")
@@ -34,7 +36,7 @@ def load_config(args):
         if os.path.isfile(config_file):
             print("- Using configuration: %s" % config_file)
             with open(config_file) as fp:
-                config.update(yaml.load(fp))
+                config.update(ordered_load(fp))
 
     return config
 
@@ -58,13 +60,46 @@ def get_args():
 # Default options
 def _defaults():
     """Gets a dictionary of default options"""
+    from collections import OrderedDict
+
     return {
         'author': '',
+        'categories': OrderedDict(),
         'email':  '',
-        'title': 'Lab Notebook',
+        'include_files':  ['*.html', '*.py', '*.ipynb'],
         'input_dirs': None,
         'output_dir': None,
-        'include_files':  ['*.html', '*.py', '*.ipynb'],
-        'categories': {},
+        'sort_categories_by_date': True,
+        'title': 'Lab Notebook',
         'url_prefix': ''
     }
+
+def ordered_load(stream, Loader=yaml.Loader, object_pairs_hook=OrderedDict):
+    """
+    Order-preserving YAML parser
+
+    Creates a python representation of a YAML file in the usual manner, except
+    that dictionaries are stored as OrderedDict instances, preserving the order
+    in which they appear in the YAML file.
+
+    Source: http://stackoverflow.com/a/21912744/554531
+
+    Args:
+        stream: The YAML source stream
+        Loader: Base YAML loader class (default: yaml.Loader)
+        object_pairs_hook: Class to use for storing dicts. (default:
+        OrderedDict)
+    Returns:
+        An OrderedDict or similar instance representation of the input YAML.
+    """
+
+    class OrderedLoader(Loader):
+        pass
+    def construct_mapping(loader, node):
+        loader.flatten_mapping(node)
+        return object_pairs_hook(loader.construct_pairs(node))
+    OrderedLoader.add_constructor(
+        yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
+        construct_mapping)
+    return yaml.load(stream, OrderedLoader)
+

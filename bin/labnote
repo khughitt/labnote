@@ -13,6 +13,7 @@ def main():
     import sys
     import shutil
     import time
+    from collections import OrderedDict
     from jinja2 import Environment, PackageLoader
     from operator import itemgetter
     from pkg_resources import resource_filename, Requirement
@@ -70,6 +71,12 @@ def main():
     for category in categories:
         categories[category] = sorted(categories[category],
                                       key=itemgetter('date'), reverse=True)    
+
+    # Sort categories by order of date last modified
+    if conf['sort_categories_by_date']:
+        categories = OrderedDict(sorted(categories.items(), 
+                                        key=lambda x: x[1][0]['date'], 
+                                        reverse=True))
 
     # Load Jinja2 template
     env = Environment(loader=PackageLoader('labnote', 'templates'))
