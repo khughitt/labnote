@@ -5,10 +5,10 @@ labnote
 
 Keith Hughitt <khughitt@umd.edu>
 """
-import labnote
+from labnote.notebook import Notebook
 
 def main():
-    notebook = new labnote.Notebook()
+    notebook = Notebook()
     notebook.render()
 
 if __name__ == '__main__':
