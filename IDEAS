@@ -4,3 +4,7 @@ Some possible features to implement in the future:
    (Linux), or standard locations on Mac (e.g.
    http://stackoverflow.com/questions/3373948/equivalents-of-xdg-config-home-and-xdg-data-home-on-mac-os-x)
 2. Add option to output Markdown (e.g. for hosting on  Github)
+3. Add option to color entries based on activity (e.g. gradient from blue or
+   grey -> orange)
+
+
