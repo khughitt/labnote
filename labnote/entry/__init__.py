@@ -1,1 +1,1 @@
-from labnote.entry.base import BaseEntry
+from labnote.entry.base import Entry

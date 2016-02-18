@@ -13,7 +13,7 @@ from collections import OrderedDict
 from operator import attrgetter,itemgetter
 from jinja2 import Environment, PackageLoader
 from pkg_resources import resource_filename, Requirement
-from labnote.entry import BaseEntry
+from labnote.entry import Entry
 
 class Notebook(object):
     """Notebook class"""
@@ -91,9 +91,8 @@ class Notebook(object):
         # Iterate over matches files and create notebook entries
         for filepath in filepaths:
             # Create a new notebook Entry instance
-            # TODO: Redo entry creation logic using factory pattern
-            entry = BaseEntry(filepath, self.output_dir, self.categories, 
-                              self.url_prefix)
+            entry = Entry.factory(filepath, self.output_dir, self.categories, 
+                                  self.url_prefix)
 
             # add entry to master dictionary
             if entry.category not in self.categories:

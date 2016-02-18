@@ -2,10 +2,10 @@
 Labnote base Entry class.
 """
 import datetime
-import os
 import fnmatch
+import os
 
-class BaseEntry(object):
+class Entry(object):
     """Base notebook Entry class"""
     def __init__(self, filepath, output_dir, categories, url_prefix):
         """Creates a lab notebook Entry object instance.
@@ -28,12 +28,30 @@ class BaseEntry(object):
         self.filepath = filepath
         self.filename = os.path.basename(filepath)
         self.dir_name = os.path.basename(os.path.dirname(filepath))
-        self.title = self._get_entry_title(),
-        self.date = self._get_date_modified(),
+        self.title = self._get_entry_title()
+        self.date = self._get_date_modified()
         self.url = os.path.join(url_prefix, filepath.replace(output_dir, ''))
 
         # determine category to use
         self.category = self._get_category(categories)
+
+    @staticmethod
+    def factory(filepath, output_dir, categories, url_prefix):
+        """Static method used to create specific entry instances"""
+        print(" * Adding %s" % filepath)
+
+        # Determine file extension
+        ext = os.path.splitext(filepath)[-1].lower()
+
+        # HTML files
+        if ext == '.html':
+            return HTMLEntry(filepath, output_dir, categories, url_prefix)
+        elif ext == '.py':
+            # Python scripts
+            return PythonEntry(filepath, output_dir, categories, url_prefix)
+        else:
+            # Everything else
+            return GenericEntry(filepath, output_dir, categories, url_prefix)
 
     def _get_category(self, categories, default='Other'):
         """Determines category for a given analysis"""
@@ -44,35 +62,40 @@ class BaseEntry(object):
 
     def _get_date_modified(self):
         """Determines the date that the file was last modified"""
-
         mtime = os.path.getmtime(self.filepath)
         return datetime.datetime.fromtimestamp(mtime).strftime('%Y/%m/%d')
+
+class HTMLEntry(Entry):
+    """HTML lab notebook entry"""
+    def __init__(self, filepath, output_dir, categories, url_prefix):
+        """Creates a new HTMLEntry instance."""
+        super().__init__(filepath, output_dir, categories, url_prefix)
 
     def _get_entry_title(self):
         """Determine title to use for the specified notebook entry"""
         from bs4 import BeautifulSoup
 
-        # file extension
-        ext = os.path.splitext(self.filepath)[-1].lower()
+        with open(self.filepath) as fp:
+            title = BeautifulSoup(fp, 'html.parser').title.string
+            return title if title is not None else self.filename
 
-        # TODO: extend to support ipynb parsing; 
-        # split into separate functions
+class GenericEntry(Entry):
+    """Generic lab notebook entry"""
+    def __init__(self, filepath, output_dir, categories, url_prefix):
+        """Creates a new GenericEntry instance."""
+        super().__init__(filepath, output_dir, categories, url_prefix)
 
-        print(" * Adding %s" % self.filepath)
-
-        # HTML
-        if ext == '.html':
-            with open(self.filepath) as fp:
-                title = BeautifulSoup(fp, 'html.parser').title.string
-            if title is not None:
-                return title
-        elif ext == '.py':
-            return self._parse_python_title()
-
-        # Default (filename)
+    def _get_entry_title(self):
+        """Determine title to use for the specified notebook entry"""
         return self.filename 
 
-    def _parse_python_title(self):
+class PythonEntry(Entry):
+    """Python lab notebook entry"""
+    def __init__(self, filepath, output_dir, categories, url_prefix):
+        """Creates a new PythonEntry instance."""
+        super().__init__(filepath, output_dir, categories, url_prefix)
+
+    def _get_entry_title(self):
         """Attempts to extract the first line of a python file docstring to use
         as a notebook entry title"""
         import ast
@@ -85,12 +108,13 @@ class BaseEntry(object):
                 # Non-standard Python code (e.g. Snakemake)
                 return self.filename
 
-            # grab docstring if it exists
-            docstring = ast.get_docstring(mod)
+        # grab docstring if it exists
+        docstring = ast.get_docstring(mod)
 
-            if docstring is not None:
-                # extract first line from docstring
-                return docstring.split('\n')[0]
-            else:
-                return self.filename
+        if docstring is not None:
+            # extract first line from docstring
+            return docstring.split('\n')[0]
+        else:
+            return self.filename
+
 
