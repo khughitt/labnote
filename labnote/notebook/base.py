@@ -4,16 +4,14 @@ Notebook class definition
 import fnmatch
 import glob
 import os
-import shutil
 import sys
 import time
 import yaml
 from argparse import ArgumentParser
 from collections import OrderedDict
 from operator import attrgetter,itemgetter
-from jinja2 import Environment, PackageLoader
-from pkg_resources import resource_filename, Requirement
 from labnote.entry import Entry
+from .renderer import HTMLRenderer
 
 class Notebook(object):
     """Notebook class"""
@@ -32,17 +30,24 @@ class Notebook(object):
         self.input_dirs = config['input_dirs']
         self.output_dir = config['output_dir']
         self.include_files = config['include_files']
+        self.categories = config['categories']
         self.url_prefix = config['url_prefix']
         self.sort_categories_by_date = config['sort_categories_by_date']
 
         # Get current date string
         self.date = time.strftime('%Y/%m/%d')
         
-        # Find matching lab notebook entries
-        self.categories = {}
+        # Create a dictionary to store notebook entries
+        self.entries = {}
 
         # Find valid notebook entry directories
         self._create_entries() 
+
+        # Create a Renderer instance
+        self.renderer = HTMLRenderer(self.author, self.title, self.email,
+                                     self.date, self.entries, self.output_dir,
+                                     'index.html')
+        print("- Finished")
 
     def _find_valid_files(self):
         """Search specified locations for files that corresponding to lab
@@ -95,57 +100,22 @@ class Notebook(object):
                                   self.url_prefix)
 
             # add entry to master dictionary
-            if entry.category not in self.categories:
-                self.categories[entry.category] = []
-            self.categories[entry.category].append(entry)
+            if entry.category not in self.entries:
+                self.entries[entry.category] = []
+            self.entries[entry.category].append(entry)
 
         # Within each category, show most recently modified entries first
-        for category in self.categories:
-            self.categories[category] = sorted(self.categories[category],
-                                               key=attrgetter('date'),
-                                               reverse=True)    
+        for category in self.entries:
+            self.entries[category] = sorted(self.entries[category],
+                                            key=attrgetter('date'),
+                                            reverse=True)    
 
         # Sort categories by order of date last modified
         if self.sort_categories_by_date:
-            self.categories = OrderedDict(
-                sorted(self.categories.items(), 
+            self.entries = OrderedDict(
+                sorted(self.entries.items(), 
                        key=lambda x: getattr(x[1][0], 'date'), 
                        reverse=True))
-
-    def render(self):
-        """Renders notebook"""
-        # Load Jinja2 template
-        env = Environment(loader=PackageLoader('labnote', 'templates'))
-
-        # Render template
-        template = env.get_template('index.html')
-        html = template.render(author=self.author, title=self.title,
-                               email=self.email, date=self.date, 
-                               categories=self.categories)
-
-        print("- Generating notebook HTML")
-
-        # Output notebook
-        outfile = os.path.join(self.output_dir, 'index.html')
-        with open(outfile, 'w') as fp:
-            fp.write(html)
-
-        print("- Saving notebook to %s" % self.output_dir)
-
-        # Path to resources/ directory
-        resources = resource_filename(Requirement.parse('labnote'),
-                                      os.path.join('labnote', 'resources'))
-
-        # Copy CSS and image resources to output directory if it does not already
-        # exist.
-        resource_dir = os.path.join(self.output_dir, 'resources')
-
-        if not os.path.isdir(resource_dir):
-            shutil.copytree(resources, resource_dir,
-                            ignore=shutil.ignore_patterns("__init__.py", 
-                                                          "__pycache__"))
-
-        print("- Finished")
 
     def _load_config(self):
         """Loads labnote configuration"""
@@ -261,4 +231,8 @@ class Notebook(object):
             yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG,
             construct_mapping)
         return yaml.load(stream, OrderedLoader)
+
+    def render(self):
+        """Renders the notebook into HTML"""
+        self.renderer.render()
 

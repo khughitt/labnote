@@ -19,10 +19,10 @@
 <hr />
 
 <!-- NOTEBOOK BEGIN -->
-{% for category in categories %}
+{% for category in entries %}
 <h2 class='section-header'>{{ category }}</h2>
 <ul class='section'>
-    {% for entry in categories[category] %}
+    {% for entry in entries[category] %}
     <li>
         <time>{{ entry["date"] }}</time>
         <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
