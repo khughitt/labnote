@@ -37,6 +37,6 @@ setup(
     scripts=['bin/labnote'],
     zip_safe=False,
     url="https://github.com/khughitt/labnote",
-    version="0.1"
+    version="0.5"
 )
 

@@ -31,6 +31,7 @@ class Notebook(object):
         self.output_dir = config['output_dir']
         self.include_files = config['include_files']
         self.categories = config['categories']
+        self.theme = config['theme']
         self.url_prefix = config['url_prefix']
         self.sort_categories_by_date = config['sort_categories_by_date']
 
@@ -46,7 +47,7 @@ class Notebook(object):
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
                                      self.date, self.entries, self.output_dir,
-                                     'index.html')
+                                     self.theme)
         print("- Finished")
 
     def _find_valid_files(self):
@@ -198,6 +199,7 @@ class Notebook(object):
             'input_dirs': None,
             'output_dir': None,
             'sort_categories_by_date': True,
+            'theme': 'default',
             'title': 'Lab Notebook',
             'url_prefix': ''
         }

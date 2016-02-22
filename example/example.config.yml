@@ -19,3 +19,6 @@ categories:
   'Finches': ['finch', 'natural-selection']  
   'Barnacles': ['cirripede']  
 
+# Notebook theme
+theme: default
+

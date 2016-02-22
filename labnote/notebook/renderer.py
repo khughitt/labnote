@@ -13,17 +13,18 @@ from pkg_resources import resource_filename, Requirement
 class Renderer(object):
     """Base notebook Renderer class"""
     def __init__(self, author, title, email, date, entries,
-                 output_dir, template='index.html'):
+                 output_dir, theme='default'):
         self.author = author
         self.title = title
         self.email = email
         self.date = date
         self.entries = entries
         self.output_dir = output_dir
+        self.theme = '%s.html' % theme
 
         # Load Jinja2 template
         env = Environment(loader=PackageLoader('labnote', 'templates'))
-        self.template = env.get_template(template)
+        self.template = env.get_template(self.theme)
 
     def render(self):
         """Abstract method for rendering the notebook"""
