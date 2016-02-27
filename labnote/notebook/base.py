@@ -15,13 +15,15 @@ from .renderer import HTMLRenderer
 
 class Notebook(object):
     """Notebook class"""
-    def __init__(self):
+    def __init__(self, conf=None):
         """Creates a new notebook instance"""
-
         print("- Starting Labnote")
 
+        print(" LOADING")
+        print(conf)
+
         # Get default args
-        config = self._load_config()
+        config = self._load_config(conf)
 
         # Set object attributes
         self.author = config['author']
@@ -118,8 +120,24 @@ class Notebook(object):
                        key=lambda x: getattr(x[1][0], 'date'), 
                        reverse=True))
 
-    def _load_config(self):
-        """Loads labnote configuration"""
+    def _load_config(self, config_filepath):
+        """Loads labnote configuration
+       
+        This function determines which settings to use when running Labnote.
+        Settings may be specified in several different ways. The order to
+        presedence is:
+
+        1. Configuration file specified by `conf` argument to `_load_config`
+        2. Command-line options
+        3. User configuration (~/.config/labnote/config.yaml)
+        4. Defaults
+
+        Args:
+            config_filepath: (Optional) Configuration filepath to use.
+       
+        Returns:
+            config: OrderedDict containing labnote settings.
+        """
         # Load configuration
         parser = self._get_args()
 
@@ -142,13 +160,18 @@ class Notebook(object):
             with open(args['config']) as fp:
                 config.update(self._ordered_load(fp))
         else:
-            # Otherwise, load user config file if it exists
-            config_dir = os.path.expanduser("~/.config/labnote/")
+            # Check for configuration file specified in the Notebook
+            # constructor.
+            if config_filepath is not None:
+                config_file = config_filepath
+            else:
+                # Otherwise, load user config file if it exists
+                config_dir = os.path.expanduser("~/.config/labnote/")
 
-            # Check for config.yaml or config.yml
-            config_file = os.path.join(config_dir, 'config.yml')
-            if not os.path.isfile(config_file):
-                config_file = os.path.join(config_dir, 'config.yaml')
+                # Check for config.yaml or config.yml
+                config_file = os.path.join(config_dir, 'config.yml')
+                if not os.path.isfile(config_file):
+                    config_file = os.path.join(config_dir, 'config.yaml')
 
             # If user config exists, use it to overwrite defaults
             if os.path.isfile(config_file):
@@ -157,7 +180,7 @@ class Notebook(object):
                     config.update(self._ordered_load(fp))
 
         # Update default arguments with user-specified settings
-            config.update(args)
+        config.update(args)
 
         # Check for required parameters
         if 'input_dirs' not in config:

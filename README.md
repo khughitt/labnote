@@ -184,4 +184,6 @@ Things to be added...
     - Allow for optional thumbnail to be specified.
     - Allow links to external files and URLs to be included (e.g.
       presentations, papers, etc.)
+- Copy files from resources directory even if they already exists; this way any
+  new files or updates will be included.
 

@@ -1,5 +1,6 @@
 __pycache__
 *.egg-info
+.cache
 build
 dist
 example/index.html

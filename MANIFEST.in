@@ -1,4 +1,5 @@
-include doc/*
 include labnote/templates/*
 include labnote/resources/css/*
 include labnote/resources/img/*
+graft doc
+graft example
