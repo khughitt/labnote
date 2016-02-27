@@ -3,7 +3,7 @@ labnote - HTML lab notebook generator
 """
 DOCLINES = __doc__.split("\n")
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
@@ -33,7 +33,7 @@ setup(
     maintainer="Keith Hughitt",
     maintainer_email="khughitt@umd.edu",
     name="labnote",
-    packages=['labnote', 'tests'],
+    packages=find_packages(),
     platforms=["Linux", "Solaris", "Mac OS-X", "Unix"],
     provides=['labnote'],
     scripts=['bin/labnote'],
