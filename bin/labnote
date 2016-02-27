@@ -5,7 +5,7 @@ labnote
 
 Keith Hughitt <khughitt@umd.edu>
 """
-from labnote.notebook import Notebook
+from labnote import Notebook
 
 def main():
     notebook = Notebook()

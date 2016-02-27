@@ -11,7 +11,7 @@ from argparse import ArgumentParser
 from collections import OrderedDict
 from operator import attrgetter,itemgetter
 from labnote.entry import Entry
-from .renderer import HTMLRenderer
+from labnote.renderer import HTMLRenderer
 
 class Notebook(object):
     """Notebook class"""

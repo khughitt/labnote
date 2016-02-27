@@ -7,7 +7,7 @@ Note: When running tests in a virtualenv container, be sure to install py.test
 import os
 import pytest
 from pkg_resources import resource_filename, Requirement
-from labnote.notebook import Notebook
+from labnote import Notebook
 
 @pytest.fixture(scope="module")
 def notebook():
