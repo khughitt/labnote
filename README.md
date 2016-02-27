@@ -76,12 +76,8 @@ Labnote is currently aimed at supporting Linux and OS X setups.
 To install labnote using [pip](https://docs.python.org/3.5/installing/index.html), run:
 
 ```
-pip install https://github.com/khughitt/labnote/archive/master.zip
+pip install labnote
 ```
-
-Once the development is a little further along, labnote will be uploaded to
-[PyPI](https://pypi.python.org/pypi) and can then be installed using the usual
-`pip` or `easy_install` commands.
 
 ### Testing installation
 
