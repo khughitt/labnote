@@ -25,6 +25,8 @@ setup(
     classifiers=CLASSIFIERS,
     description=DOCLINES[0],
     install_requires=['beautifulsoup4', 'jinja2', 'PyYAML', 'setuptools-git'],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
     include_package_data=True,
     license="BSD",
     long_description="\n".join(DOCLINES[2:]),
@@ -35,9 +37,6 @@ setup(
     platforms=["Linux", "Solaris", "Mac OS-X", "Unix"],
     provides=['labnote'],
     scripts=['bin/labnote'],
-    #data_files=[('example', ['example/example.config.yml']),
-    #            ('example/research/animal_behavior/molothrus', 
-    #             ['example/research/animal_behavior/molothrus/README.html'])],
     zip_safe=False,
     url="https://github.com/khughitt/labnote",
     version="0.5"

@@ -175,11 +175,42 @@ The project is just getting started and is changing rapidly.
 [mailto:khughitt@umd.edu](Let me know) if you have suggestions or would like to
 contribute.
 
+### Running tests
+
+The easiest way to run the unit tests for labnote is to create a virtualenv
+container and run the tests from within there. For example, if you have
+[virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/), you 
+can run:
+
+```
+git clone https://github.com/khughitt/labnote && cd labnote
+mkvirtualenv labnote
+pip install -e .
+pip install pytest
+hash -r
+py.test
+```
+
+If you already cloned the labnote repo, you can skip the first step above and
+simply `cd` to the repo directory.
+
+The `hash -r` command in the above is needed after installing py.test to ensure
+that the virtualenv version of py.test is used, and not a system version.
+
+To run the tests for a different version of Python, you can simply create a
+second virtualenv for that version of Python and repeat the process:
+
+```
+mkvirtualenv --python=python3.3 labnote33
+```
+
+Note that virtualenvwrapper is not needed to run the tests, and the commands
+for using the base version of virtualenv are pretty similar.
+
 ### TODO
 
 Things to be added...
 
-- Add tests.
 - Add option to print default config.yml
 - Check for git revision and link to repo if on Github
 - Add support for customizing display of entries using .entry.yml files for a

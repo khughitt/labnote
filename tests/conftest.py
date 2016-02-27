@@ -1,5 +1,8 @@
 """
 Labnote Notebook Fixture
+
+Note: When running tests in a virtualenv container, be sure to install py.test
+      in the virtualenv so that system version isn't used instead.
 """
 import os
 import pytest
