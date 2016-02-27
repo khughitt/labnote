@@ -39,6 +39,7 @@ setup(
     scripts=['bin/labnote'],
     zip_safe=False,
     url="https://github.com/khughitt/labnote",
+    download_url="https://github.com/khughitt/labnote/tarball/0.6",
     version="0.6"
 )
 
