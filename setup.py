@@ -6,7 +6,7 @@ DOCLINES = __doc__.split("\n")
 from setuptools import setup, find_packages
 
 CLASSIFIERS = [
-    'Development Status :: 3 - Alpha',
+    'Development Status :: 4 - Beta',
     'Intended Audience :: Science/Research',
     'License :: OSI Approved :: BSD License',
     'Programming Language :: Python',
@@ -23,13 +23,12 @@ setup(
     author="Keith Hughitt",
     author_email="khughitt@umd.edu",
     classifiers=CLASSIFIERS,
-    description=DOCLINES[0],
+    description="Flexible and lightweight tool for generating simple HTML-based electronic lab notebooks",
     install_requires=['beautifulsoup4', 'jinja2', 'PyYAML', 'setuptools-git'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     include_package_data=True,
     license="BSD",
-    long_description="\n".join(DOCLINES[2:]),
     maintainer="Keith Hughitt",
     maintainer_email="khughitt@umd.edu",
     name="labnote",
