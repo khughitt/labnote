@@ -4,5 +4,5 @@ __pycache__
 .eggs
 build
 dist
-example/index.html
-example/resources
+example/research/index.html
+example/research/resources

@@ -6,10 +6,10 @@ email: cdarwin@geolsoc.org.uk
 
 # Search path for notebook entries
 input_dirs:
-  - /home/cdarwin/research/*/*
+  - example/research/*/*
 
 # Directory where notebook HTML should be saved to
-output_dir: /home/cdarwin/research/
+output_dir: example/research/
 
 # File types to include
 include_files: ['*.html', '*.py', '*.txt']
