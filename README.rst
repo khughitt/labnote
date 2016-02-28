@@ -107,7 +107,26 @@ above.
 Automating notebook generation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@TODO
+Labnote can be easily automated using 
+`Cron <https://en.wikipedia.org/wiki/Cron>`__. For example, to have labnote
+regenerate your lab notebook once a day, run ``crontab -e`` to edit your
+user-level cron jobs, and add:
+
+::
+
+    @daily labnote
+
+If you have created a user configuration for labnote in
+``$HOME/.config/labnote/config.yml``, then you are all set. Otherwise simply
+add whatever options you would use when calling Labnote from the command-line
+to the cronjob, e.g.:
+
+::
+
+    @daily labnote -c /path/to/config.yml
+
+For more information on how to create and customize cron jobs on your system,
+see the `Ubuntu Cron Tutorial <https://help.ubuntu.com/community/CronHowto>`__.
 
 Configuration
 -------------
@@ -242,14 +261,29 @@ Things to be added...
    for a given directory:
 
    -  For each entry, let user specify filename, title, description,
-      etc.
+      image, external_links.
    -  Allow specifying one or more entries to include for the directory
    -  Allow for optional thumbnail to be specified.
    -  Allow links to external files and URLs to be included (e.g.
       presentations, papers, etc.)
 
--  Copy files from resources directory even if they already exists; this
-   way any new files or updates will be included.
+- Copy files from resources directory even if they already exists; this
+  way any new files or updates will be included.
+- Add option to include entry/category images.
+- Add support for specifying an exclude/ignore search pattern
+- Switch to regexes for search path
+- Add option to automatically generate README.html files for each README.md
+  found (check last modified date to determine whether file should be
+  regenerated.)
+- Add option to show short git commit hashes next to entries which associated
+  with repos.
+- Allow sorting of categories by order in settings (default), name, or
+  date-modified.
+- Allow sorting of entries by name or date modified.
+- Add option to show entries in a "journal mode" with all entries displayed
+  together, sorted from most recent to oldest. Category divisions can either be
+  hidden entirely, or displayed as (colored) tags to the right side of the
+  entry titles.
 
 .. |Build Status| image:: https://travis-ci.org/khughitt/labnote.svg?branch=master
    :target: https://travis-ci.org/khughitt/labnote
