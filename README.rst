@@ -270,8 +270,7 @@ Things to be added...
 - Copy files from resources directory even if they already exists; this
   way any new files or updates will be included.
 - Add option to include entry/category images.
-- Add support for specifying an exclude/ignore search pattern
-- Switch to regexes for search path
+- Switch to regexes for search path? (more flexible, but less simple...)
 - Add option to automatically generate README.html files for each README.md
   found (check last modified date to determine whether file should be
   regenerated.)

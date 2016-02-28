@@ -27,6 +27,7 @@ class Notebook(object):
         # Set object attributes
         self.author = config['author']
         self.email = config['email']
+        self.exclude = config['exclude']
         self.title = config['title']
         self.input_dirs = config['input_dirs']
         self.output_file = config['output_file']
@@ -77,10 +78,16 @@ class Notebook(object):
             for sub_dir in glob.glob(input_dir):
                 if not os.path.isdir(sub_dir):
                     continue
+
                 for filename in os.listdir(sub_dir):
                     filepath = os.path.join(sub_dir, filename)
                     if not os.path.isfile(filepath):
                         continue
+
+                    # Skip files which match one of the exclude patterns
+                    if any([x in filepath for x in self.exclude]):
+                        continue
+                
                     # For each file in the top-level of a matching dir, check
                     # to see if it is a valid notebook entry file
                     if any(fnmatch.fnmatch(filename, pattern) for 
@@ -225,6 +232,7 @@ class Notebook(object):
             'author': '',
             'categories': OrderedDict(),
             'email':  '',
+            'exclude': [],
             'include_files':  ['*.html', '*.py', '*.ipynb'],
             'input_dirs': None,
             'output_file': None,

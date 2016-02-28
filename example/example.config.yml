@@ -14,6 +14,9 @@ output_file: example/research/index.html
 # File types to include
 include_files: ['*.html', '*.py', '*.txt']
 
+# Files to exclude
+exclude: ['private']
+
 # Research categories
 categories:
   'Finches': ['finch', 'natural-selection']  
