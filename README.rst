@@ -158,7 +158,7 @@ The configuration file should look something like:
       - /home/user/Dropbox/research/201[2-5]/*
       - /home/user/Dropbox/research/2016/*/*
       
-    output_dir: /home/user/Dropbox/research/
+    output_file: /home/user/Dropbox/research/index.html
 
     include_files: ['*.html', '*.py', '*.ipynb', 'README.*']
 
@@ -174,10 +174,10 @@ The main settings that are important to define are:
 1. ``input_dirs`` - One or more
    `wildcard <http://tldp.org/LDP/GNU-Linux-Tools-Summary/html/x11655.htm>`__
    filepath expressions
-2. ``output_dir`` - Path to save resulting HTML and its associated files
-   to. Most often, this will be some parent directory of the input
+2. ``output_file`` - Path to save resulting HTML and its associated files
+   to. Most often, this will be located some parent directory of the input
    directories, possibly in a web-accessible location (e.g.
-   ``/var/www/`` or ``~/public_html``).
+   ``/var/www/index.html`` or ``~/public_html/notebook.html``).
 3. ``include_files`` - Files to link to in your notebook.
 4. ``categories`` - A set of categories you would like to use to
    organise your notebook, along with some search strings which can be

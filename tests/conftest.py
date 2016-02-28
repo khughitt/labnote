@@ -9,7 +9,8 @@ import pytest
 from pkg_resources import resource_filename, Requirement
 from labnote import Notebook
 
-@pytest.fixture(scope="module")
-def notebook():
+@pytest.fixture(scope="session")
+def notebook(tmpdir_factory):
     example_conf = 'example/example.config.yml'
-    return Notebook(example_conf)
+    outfile = str(tmpdir_factory.mktemp('output').join('index.html'))
+    return Notebook(example_conf, output_file=outfile)

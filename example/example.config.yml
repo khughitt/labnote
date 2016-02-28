@@ -8,8 +8,8 @@ email: cdarwin@geolsoc.org.uk
 input_dirs:
   - example/research/*/*
 
-# Directory where notebook HTML should be saved to
-output_dir: example/research/
+# Location where notebook HTML should be saved to
+output_file: example/research/index.html
 
 # File types to include
 include_files: ['*.html', '*.py', '*.txt']

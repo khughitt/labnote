@@ -13,13 +13,13 @@ from pkg_resources import resource_filename, Requirement
 class Renderer(object):
     """Base notebook Renderer class"""
     def __init__(self, author, title, email, date, entries,
-                 output_dir, theme='default'):
+                 output_file, theme='default'):
         self.author = author
         self.title = title
         self.email = email
         self.date = date
         self.entries = entries
-        self.output_dir = output_dir
+        self.output_file = output_file
         self.theme = '%s.html' % theme
 
         # Load Jinja2 template
@@ -32,8 +32,8 @@ class Renderer(object):
 
 class HTMLRenderer(Renderer):
     """HTML notebook renderer"""
-    def __init__(self, author, title, email, date, entries, output_dir, template):
-        super().__init__(author, title, email, date, entries, output_dir,
+    def __init__(self, author, title, email, date, entries, output_file, template):
+        super().__init__(author, title, email, date, entries, output_file,
                          template)
 
     def render(self):
@@ -45,11 +45,10 @@ class HTMLRenderer(Renderer):
         print("- Generating notebook HTML")
 
         # Output notebook
-        outfile = os.path.join(self.output_dir, 'index.html')
-        with open(outfile, 'w') as fp:
+        with open(self.output_file, 'w') as fp:
             fp.write(html)
 
-        print("- Saving notebook to %s" % self.output_dir)
+        print("- Saving notebook to %s" % self.output_file)
 
         # Path to resources/ directory
         resources = resource_filename(Requirement.parse('labnote'),
@@ -57,7 +56,8 @@ class HTMLRenderer(Renderer):
 
         # Copy CSS and image resources to output directory if it does not already
         # exist.
-        resource_dir = os.path.join(self.output_dir, 'resources')
+        output_dir = os.path.dirname(self.output_file)
+        resource_dir = os.path.join(output_dir, 'resources')
 
         if not os.path.isdir(resource_dir):
             shutil.copytree(resources, resource_dir,

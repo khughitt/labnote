@@ -15,22 +15,21 @@ from labnote.renderer import HTMLRenderer
 
 class Notebook(object):
     """Notebook class"""
-    def __init__(self, conf=None):
+    def __init__(self, conf=None, **kwargs):
         """Creates a new notebook instance"""
         print("- Starting Labnote")
 
         print(" LOADING")
-        print(conf)
 
         # Get default args
-        config = self._load_config(conf)
+        config = self._load_config(conf, **kwargs)
 
         # Set object attributes
         self.author = config['author']
         self.email = config['email']
         self.title = config['title']
         self.input_dirs = config['input_dirs']
-        self.output_dir = config['output_dir']
+        self.output_file = config['output_file']
         self.include_files = config['include_files']
         self.categories = config['categories']
         self.theme = config['theme']
@@ -48,7 +47,7 @@ class Notebook(object):
 
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
-                                     self.date, self.entries, self.output_dir,
+                                     self.date, self.entries, self.output_file,
                                      self.theme)
         print("- Finished")
 
@@ -96,10 +95,13 @@ class Notebook(object):
         # Find files to use for notebook generation
         filepaths = self._find_valid_files()
 
+        # Directory where results will be outputted
+        output_dir = os.path.dirname(self.output_file)
+
         # Iterate over matches files and create notebook entries
         for filepath in filepaths:
             # Create a new notebook Entry instance
-            entry = Entry.factory(filepath, self.output_dir, self.categories, 
+            entry = Entry.factory(filepath, output_dir, self.categories, 
                                   self.url_prefix)
 
             # add entry to master dictionary
@@ -120,20 +122,22 @@ class Notebook(object):
                        key=lambda x: getattr(x[1][0], 'date'), 
                        reverse=True))
 
-    def _load_config(self, config_filepath):
+    def _load_config(self, config_filepath, **kwargs):
         """Loads labnote configuration
        
         This function determines which settings to use when running Labnote.
         Settings may be specified in several different ways. The order to
-        presedence is:
+        precedence is:
 
-        1. Configuration file specified by `conf` argument to `_load_config`
-        2. Command-line options
-        3. User configuration (~/.config/labnote/config.yaml)
-        4. Defaults
+        1. Kwargs specified in Notebook constructor
+        2. Configuration file specified by `conf` argument to `_load_config`
+        3. Command-line options
+        4. User configuration (~/.config/labnote/config.yaml)
+        5. Defaults
 
         Args:
             config_filepath: (Optional) Configuration filepath to use.
+            kwargs: (Optional) Arguments specified via Notebook constructor.
        
         Returns:
             config: OrderedDict containing labnote settings.
@@ -182,14 +186,17 @@ class Notebook(object):
         # Update default arguments with user-specified settings
         config.update(args)
 
+        # Update with arguments specified to Notebook constructor
+        config.update(kwargs)
+
         # Check for required parameters
         if 'input_dirs' not in config:
             parser.print_help()
             print("Error: missing input directory(s).")
             sys.exit()
-        elif 'output_dir' not in config:
+        elif 'output_file' not in config:
             parser.print_help()
-            print("Error: missing output directory.")
+            print("Error: missing output filepath.")
             sys.exit()
 
         return config
@@ -203,7 +210,7 @@ class Notebook(object):
                                 'in $HOME/.config/labnote/config.yml, if it exists.)'))
         parser.add_argument('-i', '--input-dirs', dest='input_dirs', nargs='+',
                             help=('Input directory(s) containing notebook entries.'))
-        parser.add_argument('-o', '--output-dir', dest='output_dir',
+        parser.add_argument('-o', '--output-file', dest='output_file',
                             help=('Location to output notebook HTML to.'))
         parser.add_argument('-u', '--url-prefix', dest='url_prefix',
                             help=('Prefix to add to each entry URL. (Default: "")'))
@@ -220,7 +227,7 @@ class Notebook(object):
             'email':  '',
             'include_files':  ['*.html', '*.py', '*.ipynb'],
             'input_dirs': None,
-            'output_dir': None,
+            'output_file': None,
             'sort_categories_by_date': True,
             'theme': 'default',
             'title': 'Lab Notebook',
