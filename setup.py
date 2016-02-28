@@ -26,7 +26,7 @@ setup(
     description="Flexible and lightweight tool for generating simple HTML-based electronic lab notebooks",
     install_requires=['beautifulsoup4', 'jinja2', 'PyYAML', 'setuptools-git'],
     setup_requires=['pytest-runner'],
-    tests_require=['pytest'],
+    tests_require=['pytest>=2.8'],
     include_package_data=True,
     license="BSD",
     maintainer="Keith Hughitt",
