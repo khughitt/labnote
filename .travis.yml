@@ -3,6 +3,8 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+before_install:
+  - pip install --upgrade pytest
 install:
   - pip install .
 script: py.test
