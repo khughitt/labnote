@@ -55,8 +55,9 @@ class Entry(object):
 
     def _get_category(self, categories, default='Other'):
         """Determines category for a given analysis"""
-        for category,patterns in categories.items():
-            if any(fnmatch.fnmatch(self.dir_name, ("*%s*" % p)) for p in patterns):
+        for category,metadata in categories.items():
+            if any(fnmatch.fnmatch(self.dir_name, ("*%s*" % p)) for p in
+                    metadata['patterns']):
                 return(category)
         return(default) 
 

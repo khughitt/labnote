@@ -9,8 +9,16 @@ class TestNotebook():
 
         # check categories
         assert dict(notebook.categories) == {
-                'Barnacles': ['cirripede'], 
-                'Finches': ['finch', 'natural-selection']
+            'Barnacles': {
+                'patterns': ['cirripede'],
+                'description': '',
+                'image': ''
+            },
+            'Finches': {
+                'patterns': ['finch', 'natural-selection'],
+                'description': "Finch research from the second voyage of HMS Beagle",
+                'image': ''
+            }
         }
 
     def test_entries(self, notebook):

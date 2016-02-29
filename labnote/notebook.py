@@ -10,6 +10,7 @@ import yaml
 from argparse import ArgumentParser
 from collections import OrderedDict
 from operator import attrgetter,itemgetter
+from labnote.categories import CategoryManager
 from labnote.entry import Entry
 from labnote.renderer import HTMLRenderer
 
@@ -32,13 +33,15 @@ class Notebook(object):
         self.input_dirs = config['input_dirs']
         self.output_file = config['output_file']
         self.include_files = config['include_files']
-        self.categories = config['categories']
         self.theme = config['theme']
         self.url_prefix = config['url_prefix']
         self.sort_categories_by_date = config['sort_categories_by_date']
 
         # Get current date string
         self.date = time.strftime('%Y/%m/%d')
+
+        # Load categories
+        self.categories = CategoryManager(config['categories'])
         
         # Create a dictionary to store notebook entries
         self.entries = {}
@@ -230,7 +233,7 @@ class Notebook(object):
 
         return {
             'author': '',
-            'categories': OrderedDict(),
+            'categories': {},
             'email':  '',
             'exclude': [],
             'include_files':  ['*.html', '*.py', '*.ipynb'],

@@ -19,8 +19,16 @@ exclude: ['private']
 
 # Research categories
 categories:
-  'Finches': ['finch', 'natural-selection']  
-  'Barnacles': ['cirripede']  
+  Finches:
+    patterns: ['finch', 'natural-selection']
+    description: "Finch research from the second voyage of HMS Beagle"
+  Barnacles:
+    patterns: ['cirripede']
+
+# Short-hand method of specifying categories
+#categories:
+#  'Finches': ['finch', 'natural-selection']  
+#  'Barnacles': ['cirripede']  
 
 # Notebook theme
 theme: default
