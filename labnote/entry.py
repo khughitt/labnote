@@ -7,7 +7,7 @@ import os
 
 class Entry(object):
     """Base notebook Entry class"""
-    def __init__(self, filepath, output_dir, categories, url_prefix):
+    def __init__(self, filepath, output_dir, categories, url_prefix, **kwargs):
         """Creates a lab notebook Entry object instance.
     
         Parses the relevant file corresponding to the notebook entry and
@@ -28,15 +28,23 @@ class Entry(object):
         self.filepath = filepath
         self.filename = os.path.basename(filepath)
         self.dir_name = os.path.basename(os.path.dirname(filepath))
-        self.title = self._get_entry_title()
         self.date = self._get_date_modified()
         self.url = os.path.join(url_prefix, filepath.replace(output_dir, ''))
 
-        # determine category to use
-        self.category = self._get_category(categories)
+        # set title
+        if 'title' in kwargs:
+            self.title = kwargs['title']
+        else:
+            self.title = self._get_entry_title()
+
+        # set category
+        if 'category' in kwargs:
+            self.category = kwargs['category']
+        else:
+            self.category = self._get_category(categories)
 
     @staticmethod
-    def factory(filepath, output_dir, categories, url_prefix):
+    def factory(filepath, output_dir, categories, url_prefix, **kwargs):
         """Static method used to create specific entry instances"""
         print(" * Adding %s" % filepath)
 
@@ -45,13 +53,16 @@ class Entry(object):
 
         # HTML files
         if ext == '.html':
-            return HTMLEntry(filepath, output_dir, categories, url_prefix)
+            return HTMLEntry(filepath, output_dir, categories, url_prefix,
+                    **kwargs)
         elif ext == '.py':
             # Python scripts
-            return PythonEntry(filepath, output_dir, categories, url_prefix)
+            return PythonEntry(filepath, output_dir, categories, url_prefix,
+                    **kwargs)
         else:
             # Everything else
-            return GenericEntry(filepath, output_dir, categories, url_prefix)
+            return GenericEntry(filepath, output_dir, categories, url_prefix,
+                    **kwargs)
 
     def _get_category(self, categories, default='Other'):
         """Determines category for a given analysis"""
@@ -68,9 +79,9 @@ class Entry(object):
 
 class HTMLEntry(Entry):
     """HTML lab notebook entry"""
-    def __init__(self, filepath, output_dir, categories, url_prefix):
+    def __init__(self, filepath, output_dir, categories, url_prefix, **kwargs):
         """Creates a new HTMLEntry instance."""
-        super().__init__(filepath, output_dir, categories, url_prefix)
+        super().__init__(filepath, output_dir, categories, url_prefix, **kwargs)
 
     def _get_entry_title(self):
         """Determine title to use for the specified notebook entry"""
@@ -82,9 +93,9 @@ class HTMLEntry(Entry):
 
 class GenericEntry(Entry):
     """Generic lab notebook entry"""
-    def __init__(self, filepath, output_dir, categories, url_prefix):
+    def __init__(self, filepath, output_dir, categories, url_prefix, **kwargs):
         """Creates a new GenericEntry instance."""
-        super().__init__(filepath, output_dir, categories, url_prefix)
+        super().__init__(filepath, output_dir, categories, url_prefix, **kwargs)
 
     def _get_entry_title(self):
         """Determine title to use for the specified notebook entry"""
@@ -92,9 +103,9 @@ class GenericEntry(Entry):
 
 class PythonEntry(Entry):
     """Python lab notebook entry"""
-    def __init__(self, filepath, output_dir, categories, url_prefix):
+    def __init__(self, filepath, output_dir, categories, url_prefix, **kwargs):
         """Creates a new PythonEntry instance."""
-        super().__init__(filepath, output_dir, categories, url_prefix)
+        super().__init__(filepath, output_dir, categories, url_prefix, **kwargs)
 
     def _get_entry_title(self):
         """Attempts to extract the first line of a python file docstring to use

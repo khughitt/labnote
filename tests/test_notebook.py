@@ -36,6 +36,6 @@ class TestNotebook():
             'Comparison of cirripede morphology',
             'Finch Beak Size Analysis',
             'Molothrus parasitism',
-            'foraging-strategies.py',
-            'thoughts.txt'
+            'Natural Selection',
+            'foraging-strategies.py'
         ]

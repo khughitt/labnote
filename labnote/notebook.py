@@ -48,6 +48,7 @@ class Notebook(object):
 
         # Find valid notebook entry directories
         self._create_entries() 
+        self._sort_entries()
 
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
@@ -110,15 +111,30 @@ class Notebook(object):
 
         # Iterate over matches files and create notebook entries
         for filepath in filepaths:
+            # Check for .labnote file in directory
+            metafile = os.path.join(os.path.dirname(filepath), '.labnote')
+
+            kwargs = {}
+
+            if os.path.exists(metafile):
+                with open(metafile) as fp:
+                    metadata = yaml.load(fp)
+
+                filename = os.path.basename(filepath)
+                if filename in metadata.keys():
+                    kwargs = metadata[filename]
+
             # Create a new notebook Entry instance
             entry = Entry.factory(filepath, output_dir, self.categories, 
-                                  self.url_prefix)
+                                  self.url_prefix, **kwargs)
 
             # add entry to master dictionary
             if entry.category not in self.entries:
                 self.entries[entry.category] = []
             self.entries[entry.category].append(entry)
 
+    def _sort_entries(self):
+        """Sorts notebook entries"""
         # Within each category, show most recently modified entries first
         for category in self.entries:
             self.entries[category] = sorted(self.entries[category],

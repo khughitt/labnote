@@ -202,7 +202,36 @@ inside each project directory.
 Customizing individual entries
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-@TODO
+In addition to the automatic processing of entries that labnote normally uses
+to render notebook entries, directory-specific `.labnote` files can also be
+used to control the behavior and appearance of entries. These are YAML files,
+and should follow the format:
+
+.. code:: yaml
+
+    ---
+    README.html:
+      title: Custom Title
+    pipeline.sh:
+      title: My Interesting Analysis Pipeline
+
+Furthermore, `.labnote` files can be used to specify additional entry metadata
+that can't be automatically detected such as a description of the notebook
+entry and links to external resources such as web-pages, presentation slides, 
+etc:
+
+.. code:: yaml
+
+    ---
+    README.html:
+      title: Custom Title
+      description: Description of the notebook entry
+      external:
+        - http://www.google.com
+        - research/extra/presentation.ppt
+
+(NOTE 2016/03/02: the description and external link support haven't been implemented yet,
+but should be shortly...)
 
 Development
 -----------
