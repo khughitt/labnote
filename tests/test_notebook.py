@@ -12,12 +12,17 @@ class TestNotebook():
             'Barnacles': {
                 'patterns': ['cirripede'],
                 'description': '',
-                'image': ''
+                'image': 'images/1854_Balanidae_F339.2_figlbp12.jpg'
             },
             'Finches': {
                 'patterns': ['finch', 'natural-selection'],
                 'description': "Finch research from the second voyage of HMS Beagle",
-                'image': ''
+                'image': 'images/a1417007h.jpg'
+            },
+            'Other': {
+                'description': '', 
+                'image': '', 
+                'patterns': []
             }
         }
 

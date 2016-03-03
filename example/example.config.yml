@@ -22,8 +22,10 @@ categories:
   Finches:
     patterns: ['finch', 'natural-selection']
     description: "Finch research from the second voyage of HMS Beagle"
+    image: "images/a1417007h.jpg"
   Barnacles:
     patterns: ['cirripede']
+    image: "images/1854_Balanidae_F339.2_figlbp12.jpg"
 
 # Short-hand method of specifying categories
 #categories:
@@ -32,4 +34,17 @@ categories:
 
 # Notebook theme
 theme: default
+
+#
+# Image sources
+# -------------
+#
+# 1. Tanagra Darwini, 1840-1843
+#      State Library New South Wales
+#      http://www2.sl.nsw.gov.au/archive/events/exhibitions/2007/heritage/images/9.html
+#
+## 2. A monograph on the sub-class Cirripedia 
+#      Darwin Online
+#      http://darwin-online.org.uk/content/frameset?itemID=F339.2&viewtype=side&pageseq=1
+#
 

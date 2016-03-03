@@ -52,7 +52,8 @@ class Notebook(object):
 
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
-                                     self.date, self.entries, self.output_file,
+                                     self.date, self.categories,
+                                     self.entries, self.output_file,
                                      self.theme)
         print("- Finished")
 

@@ -66,8 +66,8 @@ Installation
 Requirements
 ~~~~~~~~~~~~
 
-To use labnote, you must have a recent version of Python (`Python 3
-(3.3+) <https://www.python.org/>`__) available on your machine.
+To use labnote, you must have a recent version of 
+`Python (>=3.3)`<https://www.python.org/>`__) available on your machine.
 
 Additionally, labnote requires the following Python libraries:
 
@@ -98,7 +98,9 @@ run:
 
 ::
 
-    labnote -c example/example.config.yml -i example/research/*/* -o example/
+    labnote -c example/example.config.yml \
+        -i example/research/*/*           \
+        -o example/research/index.html
 
 A file named ``index.html`` should be outputted to the ``example/``
 directory and should look something like what is shown in the screenshot

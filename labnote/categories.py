@@ -19,6 +19,9 @@ class CategoryManager(OrderedDict):
 
             categories[k] = category
 
+        # Add blank "Other" category
+        categories['Other'] = defaults.copy()
+
         super().__init__(categories)
 
     def _get_defaults(self):

@@ -21,6 +21,9 @@
 <!-- NOTEBOOK BEGIN -->
 {% for category in entries %}
 <h2 class='section-header'>{{ category }}</h2>
+{% if categories[category] != '' %}
+<img src='{{ categories[category]["image"] }}' alt='' />
+{% endif %}
 <ul class='section'>
     {% for entry in entries[category] %}
     <li>
