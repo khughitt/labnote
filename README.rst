@@ -145,7 +145,7 @@ used to configure Labnote's behavior.
 
 The configuration file should look something like:
 
-::
+.. code:: yaml
 
     ---
     # General information
@@ -240,7 +240,7 @@ Contributing
 ~~~~~~~~~~~~
 
 The project is just getting started and is changing rapidly.
-`mailto:khughitt@umd.edu <Let%20me%20know>`__ if you have suggestions or
+`Let me know<mailto:khughitt@umd.edu>`__ if you have suggestions or
 would like to contribute.
 
 Running tests
@@ -284,18 +284,11 @@ TODO
 
 Things to be added...
 
--  Add option to print default config.yml
--  Check for git revision and link to repo if on Github
--  Add support for customizing display of entries using .entry.yml files
-   for a given directory:
-
-   -  For each entry, let user specify filename, title, description,
-      image, external_links.
-   -  Allow specifying one or more entries to include for the directory
-   -  Allow for optional thumbnail to be specified.
-   -  Allow links to external files and URLs to be included (e.g.
-      presentations, papers, etc.)
-
+- Add option to print default config.yml
+- Should entries be added via .labnote files, even if they aren't detected in
+  the search paths? If so, may want to first add entries as-is, and then in a
+  second round, scan for .labnote files and update affected entries / add new
+  ones.
 - Copy files from resources directory even if they already exists; this
   way any new files or updates will be included.
 - Add option to include entry/category images.
@@ -303,6 +296,7 @@ Things to be added...
 - Add option to automatically generate README.html files for each README.md
   found (check last modified date to determine whether file should be
   regenerated.)
+- Check for git revision and link to repo if on Github
 - Add option to show short git commit hashes next to entries which associated
   with repos.
 - Allow sorting of categories by order in settings (default), name, or
