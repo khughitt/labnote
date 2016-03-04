@@ -18,21 +18,30 @@
 </div>
 <hr />
 
+{% set img_counter = 0 %}
+
 <!-- NOTEBOOK BEGIN -->
 {% for category in entries %}
-<h2 class='section-header'>{{ category }}</h2>
-{% if categories[category] != '' %}
-<img src='{{ categories[category]["image"] }}' alt='' />
+<h2 class='category-header'>{{ category }}</h2>
+{% if categories[category]['image'] != '' -%}
+{% set img_counter = img_counter + 1 %}
+<div class='category-container'>
+<img class='category-image' src='{{ categories[category]["image"] }}' 
+    style='{{"float:right" if img_counter % 2 == 0 else "" }}' />
 {% endif %}
-<ul class='section'>
-    {% for entry in entries[category] %}
+<ul class='category'>
+    {% for entry in entries[category] -%}
     <li>
         <time>{{ entry["date"] }}</time>
         <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
     </li>
-{% endfor %}
+{% endfor -%}
 </ul>
-{% endfor %}
+{% if categories[category]['image'] != '' -%}
+</div>
+<div style='clear:both'></div>
+{% endif -%}
+{% endfor -%}
 </ul>
 
 <br /><br />

@@ -32,6 +32,8 @@ categories:
 #  'Finches': ['finch', 'natural-selection']  
 #  'Barnacles': ['cirripede']  
 
+sort_categories_by_date: false
+
 # Notebook theme
 theme: default
 

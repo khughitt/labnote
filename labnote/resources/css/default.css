@@ -38,17 +38,26 @@ hr {
     margin: auto;
 }
 
-/** Subsection */
-.section-header {
+/** Category */
+.category-header {
     font-family: ubuntu, verdana, sans-serif;
     font-weight: 700;
     font-size: 26px;
     color: #666;
     margin: 25px 0 5px 0;
 }
+.category {
+    display: inline-block;
+    vertical-align: middle;
+}
+.category-container > img.category-image {
+    display: inline-block;
+    vertical-align: middle;
+    max-height: 200px;
+}
 
 /** Notebook entry */
-.section time {
+.category time {
     font-family: 'courier new', monospace;
     margin-right: 10px;
 }
