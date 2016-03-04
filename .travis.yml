@@ -1,8 +1,4 @@
-os:
-  - linux
-  - osx
 language: python
-
 matrix:
   include:
     - os: linux
