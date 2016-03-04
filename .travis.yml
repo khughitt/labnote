@@ -9,6 +9,11 @@ matrix:
       python: 3.5
     - os: osx
       language: generic
+      before_install:
+        - pip3 install --upgrade pytest
+      install:
+        - pip3 install .
+      script: python3 -m pytest
 before_install:
   - pip install --upgrade pytest
 install:
