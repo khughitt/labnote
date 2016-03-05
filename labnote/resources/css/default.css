@@ -36,26 +36,28 @@ hr {
 
 /** Main contents */
 #main {
-    width: 800px;
+    width: 670px;
     text-align: left;
     margin: auto;
 }
 
 /** Category */
 .category-header {
-    font-family: ubuntu, verdana, sans-serif;
-    font-weight: 700;
-    font-size: 26px;
-    color: #666;
+    /*font-family: ubuntu, verdana, sans-serif;*/
+    font-family: 'Pacifico', cursive;
+    font-weight: 500;
+    font-size: 32px;
+    color: #3C3C3C;
     margin: 25px 0 5px 0;
+    text-shadow: #cccccc 5px 5px 15px;
 }
 .category-container > div {
     display:inline-block;
     vertical-align:middle;
-    width: 73%;
+    width: 68%;
 }
 .category-container > div.left-image, .category-container > div.right-image {
-    width: 25%;
+    width: 30%;
 }
 .category {
     line-height: 1.5em;
@@ -69,9 +71,9 @@ hr {
 .right-image > .category-image {
     float: right;
 }
-.left-image + div > ul {
-    float: right;
-}
+/*.left-image + div > ul {*/
+/*    float: right;*/
+/*}*/
 
 /** Notebook entry */
 .category time {

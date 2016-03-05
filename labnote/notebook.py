@@ -289,6 +289,5 @@ class Notebook(object):
 
     def render(self):
         """Renders the notebook into HTML"""
-        print(self.entries)
         self.renderer.render()
 

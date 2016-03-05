@@ -5,7 +5,8 @@
     <meta charset="utf-8" />
     <link rel='stylesheet' href='resources/css/reset.css' />
     <link rel='stylesheet' href='resources/css/default.css' />
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato">
+    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato' />
+    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Pacifico' />
 </head>
 <body>
 <div id='main'>
@@ -22,7 +23,8 @@
 
 <!-- NOTEBOOK BEGIN -->
 {% for category in entries %}
-<h2 class='category-header'>{{ category }}</h2>
+
+<!-- CATEGORY -->
 {% if entries[category]['image'] != '' -%}
 {% set img_counter = img_counter + 1 %}
 <div class='category-container'>
@@ -33,7 +35,8 @@
     {% endif %}
 {% endif %}
 <div>
-    <!-- CATEGORY -->
+    <!-- ENTRIES -->
+    <h2 class='category-header'>{{ category }}</h2>
     <ul class='category'>
         {% for entry in entries[category]['entries'] -%}
         <li>
