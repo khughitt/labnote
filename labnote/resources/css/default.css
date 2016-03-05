@@ -3,7 +3,10 @@ body {
     text-align: center;
 }
 
-/** http://jsfiddle.net/chriscoyier/GaEzp/35/ */
+/** 
+ * Gradient horizontal ruler
+ * http://jsfiddle.net/chriscoyier/GaEzp/35/ 
+ */
 hr {
     border: 0;
     height: 1px;
@@ -46,14 +49,28 @@ hr {
     color: #666;
     margin: 25px 0 5px 0;
 }
-.category {
-    display: inline-block;
-    vertical-align: middle;
+.category-container > div {
+    display:inline-block;
+    vertical-align:middle;
+    width: 73%;
 }
-.category-container > img.category-image {
-    display: inline-block;
-    vertical-align: middle;
+.category-container > div.left-image, .category-container > div.right-image {
+    width: 25%;
+}
+.category {
+    line-height: 1.5em;
+    color: #404040;
+}
+.category-container .category-image {
     max-height: 200px;
+    max-width: 200px;
+}
+
+.right-image > .category-image {
+    float: right;
+}
+.left-image + div > ul {
+    float: right;
 }
 
 /** Notebook entry */
@@ -61,6 +78,8 @@ hr {
     font-family: 'courier new', monospace;
     margin-right: 10px;
 }
+
+/** External link icons **/
 img.slideshow {
     content: url(../img/libreoffice-impress.png);
     width: 16px;
@@ -68,5 +87,5 @@ img.slideshow {
 }
 
 /** Link styles */
-a, a:visited { color: #2D2D2D; text-decoration: none; }
+a, a:visited { color: #404040; text-decoration: none; }
 a:hover, a:visited:hover { color: #ff5900; }
