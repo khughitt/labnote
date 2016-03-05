@@ -23,19 +23,19 @@
 <!-- NOTEBOOK BEGIN -->
 {% for category in entries %}
 <h2 class='category-header'>{{ category }}</h2>
-{% if categories[category]['image'] != '' -%}
+{% if entries[category]['image'] != '' -%}
 {% set img_counter = img_counter + 1 %}
 <div class='category-container'>
     {% if img_counter % 2 == 1 -%}
     <div class='left-image'>
-        <img class='category-image' src='{{ categories[category]["image"] }}' />
+        <img class='category-image' src='{{ entries[category]["image"] }}' />
     </div>
     {% endif %}
 {% endif %}
 <div>
     <!-- CATEGORY -->
     <ul class='category'>
-        {% for entry in entries[category] -%}
+        {% for entry in entries[category]['entries'] -%}
         <li>
             <time>{{ entry["date"] }}</time>
             <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
@@ -45,10 +45,10 @@
 </div>
 {% if img_counter % 2 == 0 -%}
 <div class='right-image'>
-    <img class='category-image' src='{{ categories[category]["image"] }}' />
+    <img class='category-image' src='{{ entries[category]["image"] }}' />
 </div>
 {% endif %}
-{% if categories[category]['image'] != '' -%}
+{% if entries[category]['image'] != '' -%}
 </div>
 <div style='clear:both'></div>
 {% endif -%}

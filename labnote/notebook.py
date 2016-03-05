@@ -9,7 +9,6 @@ import time
 import yaml
 from argparse import ArgumentParser
 from collections import OrderedDict
-from operator import attrgetter,itemgetter
 from labnote.categories import CategoryManager
 from labnote.entry import Entry
 from labnote.renderer import HTMLRenderer
@@ -41,19 +40,17 @@ class Notebook(object):
         self.date = time.strftime('%Y/%m/%d')
 
         # Load categories
-        self.categories = CategoryManager(config['categories'])
+        self.entries = CategoryManager(config['categories'])
         
-        # Create a dictionary to store notebook entries
-        self.entries = {}
-
         # Find valid notebook entry directories
-        self._create_entries() 
+        self._parse_entries() 
+
+
         self._sort_entries()
 
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
-                                     self.date, self.categories,
-                                     self.entries, self.output_file,
+                                     self.date, self.entries, self.output_file,
                                      self.theme)
         print("- Finished")
 
@@ -101,7 +98,7 @@ class Notebook(object):
 
         return filepaths
 
-    def _create_entries(self):
+    def _parse_entries(self):
         """Creates notebook entries"""
 
         # Find files to use for notebook generation
@@ -126,28 +123,26 @@ class Notebook(object):
                     kwargs = metadata[filename]
 
             # Create a new notebook Entry instance
-            entry = Entry.factory(filepath, output_dir, self.categories, 
-                                  self.url_prefix, **kwargs)
+            entry = Entry.factory(filepath, output_dir, self.url_prefix,
+                                  **kwargs)
 
-            # add entry to master dictionary
-            if entry.category not in self.entries:
-                self.entries[entry.category] = []
-            self.entries[entry.category].append(entry)
+            # Add entry
+            if 'category' in kwargs:
+                self.entries.add_entry(entry, kwargs['category'])
+            else:
+                self.entries.add_entry(entry)
+
 
     def _sort_entries(self):
         """Sorts notebook entries"""
-        # Within each category, show most recently modified entries first
-        for category in self.entries:
-            self.entries[category] = sorted(self.entries[category],
-                                            key=attrgetter('date'),
-                                            reverse=True)    
-
         # Sort categories by order of date last modified
         if self.sort_categories_by_date:
-            self.entries = OrderedDict(
+            self.entries = CategoryManager(
                 sorted(self.entries.items(), 
                        key=lambda x: getattr(x[1][0], 'date'), 
                        reverse=True))
+
+        self.entries.sort_entries()
 
     def _load_config(self, config_filepath, **kwargs):
         """Loads labnote configuration
@@ -250,7 +245,7 @@ class Notebook(object):
 
         return {
             'author': '',
-            'categories': {},
+            'entries': {},
             'email':  '',
             'exclude': [],
             'include_files':  ['*.html', '*.py', '*.ipynb'],
@@ -294,5 +289,6 @@ class Notebook(object):
 
     def render(self):
         """Renders the notebook into HTML"""
+        print(self.entries)
         self.renderer.render()
 

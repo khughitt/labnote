@@ -12,13 +12,12 @@ from pkg_resources import resource_filename, Requirement
 
 class Renderer(object):
     """Base notebook Renderer class"""
-    def __init__(self, author, title, email, date, categories, entries,
+    def __init__(self, author, title, email, date, entries,
                  output_file, theme='default'):
         self.author = author
         self.title = title
         self.email = email
         self.date = date
-        self.categories = categories
         self.entries = entries
         self.output_file = output_file
         self.theme = '%s.html' % theme
@@ -33,15 +32,14 @@ class Renderer(object):
 
 class HTMLRenderer(Renderer):
     """HTML notebook renderer"""
-    def __init__(self, author, title, email, date, categories, entries, output_file, template):
-        super().__init__(author, title, email, date, categories, entries, output_file,
+    def __init__(self, author, title, email, date, entries, output_file, template):
+        super().__init__(author, title, email, date, entries, output_file,
                          template)
 
     def render(self):
         """Renders notebook"""
         html = self.template.render(author=self.author, title=self.title,
                                     email=self.email, date=self.date, 
-                                    categories=self.categories,
                                     entries=self.entries)
 
         print("- Generating notebook HTML")
