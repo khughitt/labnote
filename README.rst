@@ -197,8 +197,8 @@ to setup. It works best if you can normalize your directory names such
 that related analyses all include a similar component (e.g.
 'xx-network-analysis').
 
-If that is not possible or convenient, Labnote will also soon support
-manually specifying a projects categorization using hidden metafiles
+If that is not possible or convenient, Labnote also supports
+manually specifying a projects categorization using hidden `.labnote` metafiles
 inside each project directory.
 
 Customizing individual entries
@@ -293,7 +293,6 @@ Things to be added...
   ones.
 - Copy files from resources directory even if they already exists; this
   way any new files or updates will be included.
-- Add option to include entry/category images.
 - Switch to regexes for search path? (more flexible, but less simple...)
 - Add option to automatically generate README.html files for each README.md
   found (check last modified date to determine whether file should be
