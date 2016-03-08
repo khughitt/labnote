@@ -7,6 +7,12 @@
     <link rel='stylesheet' href='resources/css/default.css' />
     <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato' />
     <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Pacifico' />
+    {% if user_css != '' -%}
+    <link rel='stylesheet' type='text/css' href='{{ user_css }}' />
+    {% endif -%}
+    {% if user_js != '' -%}
+    <script type='text/javascript' src='{{ user_js }}' /></script>
+    {% endif -%}
 </head>
 <body>
 <div id='main'>
@@ -32,8 +38,8 @@
     <div class='left-image'>
         <img class='category-image' src='{{ entries[category]["image"] }}' />
     </div>
-    {% endif %}
-{% endif %}
+    {% endif -%}
+{% endif -%}
 <div>
     <!-- ENTRIES -->
     <h2 class='category-header'>{{ category }}</h2>
@@ -50,7 +56,7 @@
 <div class='right-image'>
     <img class='category-image' src='{{ entries[category]["image"] }}' />
 </div>
-{% endif %}
+{% endif -%}
 {% if entries[category]['image'] != '' -%}
 </div>
 <div style='clear:both'></div>

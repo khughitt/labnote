@@ -32,6 +32,8 @@ class Notebook(object):
         self.output_file = config['output_file']
         self.include_files = config['include_files']
         self.theme = config['theme']
+        self.user_css = config['user_css']
+        self.user_js = config['user_js']
         self.url_prefix = config['url_prefix']
         self.sort_categories_by_date = config['sort_categories_by_date']
 
@@ -49,6 +51,7 @@ class Notebook(object):
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
                                      self.date, self.entries, self.output_file,
+                                     self.user_css, self.user_js,
                                      self.theme)
         print("- Finished")
 
@@ -253,6 +256,10 @@ class Notebook(object):
                             action='store_true',
                             help=('Prints the default configuration for '
                                   'Labnote to screen'))
+        parser.add_argument('--user-css', dest='user_css',
+                            help='Custom stylesheet to use.')
+        parser.add_argument('--user-js', dest='user_js',
+                            help='Custom javascript file to use.')
 
         return parser
 
@@ -270,7 +277,9 @@ class Notebook(object):
             'output_file': None,
             'sort_categories_by_date': True,
             'theme': 'default',
-            'url_prefix': ''
+            'url_prefix': '',
+            'user_css': '',
+            'user_js': ''
         }
 
     def _ordered_load(self, stream, Loader=yaml.Loader,
