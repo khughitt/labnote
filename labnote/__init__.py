@@ -1,7 +1,7 @@
 """
 labnote
 """
-__version__ = 0.6
+__version__ = 0.7
 
 from labnote.notebook import Notebook
 from labnote.entry import Entry

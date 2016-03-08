@@ -54,12 +54,13 @@ class HTMLRenderer(Renderer):
         resources = resource_filename(Requirement.parse('labnote'),
                                       os.path.join('labnote', 'resources'))
 
-        # Copy CSS and image resources to output directory if it does not already
-        # exist.
+        # Copy CSS and image resources to output directory 
         output_dir = os.path.dirname(self.output_file)
         resource_dir = os.path.join(output_dir, 'resources')
 
-        if not os.path.isdir(resource_dir):
-            shutil.copytree(resources, resource_dir,
-                            ignore=shutil.ignore_patterns("__init__.py", 
-                                                          "__pycache__"))
+        if os.path.isdir(resource_dir):
+            shutil.rmtree(resource_dir)
+
+        shutil.copytree(resources, resource_dir,
+                        ignore=shutil.ignore_patterns("__init__.py", 
+                                                        "__pycache__"))

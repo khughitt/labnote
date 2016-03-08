@@ -7,7 +7,7 @@ Labnote
 Overview
 --------
 
-Labnote is a flexible and lightweight tool for generating simple
+Labnote is a flexible and lightweight tool for generating
 HTML-based `electronic lab
 notebooks <https://en.wikipedia.org/wiki/Electronic_lab_notebook>`__.
 
@@ -286,13 +286,10 @@ TODO
 
 Things to be added...
 
-- Add option to print default config.yml
 - Should entries be added via .labnote files, even if they aren't detected in
   the search paths? If so, may want to first add entries as-is, and then in a
   second round, scan for .labnote files and update affected entries / add new
   ones.
-- Copy files from resources directory even if they already exists; this
-  way any new files or updates will be included.
 - Switch to regexes for search path? (more flexible, but less simple...)
 - Add option to automatically generate README.html files for each README.md
   found (check last modified date to determine whether file should be
@@ -307,7 +304,8 @@ Things to be added...
   together, sorted from most recent to oldest. Category divisions can either be
   hidden entirely, or displayed as (colored) tags to the right side of the
   entry titles.
-- Add support for cross-referencing?
+- Validate config file before running; print out warning messages for missing
+  images.
 
 .. |Build Status| image:: https://travis-ci.org/khughitt/labnote.svg?branch=master
    :target: https://travis-ci.org/khughitt/labnote

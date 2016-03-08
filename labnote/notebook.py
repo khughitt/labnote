@@ -17,12 +17,11 @@ class Notebook(object):
     """Notebook class"""
     def __init__(self, conf=None, **kwargs):
         """Creates a new notebook instance"""
-        print("- Starting Labnote")
-
-        print(" LOADING")
-
         # Get default args
         config = self._load_config(conf, **kwargs)
+
+        print("- Starting Labnote")
+        print(" LOADING")
 
         # Set object attributes
         self.author = config['author']
@@ -45,8 +44,7 @@ class Notebook(object):
         # Find valid notebook entry directories
         self._parse_entries() 
 
-
-        self._sort_entries()
+        #self._sort_entries()
 
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
@@ -132,17 +130,25 @@ class Notebook(object):
             else:
                 self.entries.add_entry(entry)
 
+        # Remove any categories for which no entries were found
+        for category in list(self.entries.keys()):
+            if len(self.entries[category]['entries']) == 0:
+                del self.entries[category]
 
     def _sort_entries(self):
         """Sorts notebook entries"""
+        # Sort entries within each category by date
+        self.entries.sort_entries()
+
         # Sort categories by order of date last modified
+        # NOTE 2016/03/07: Currently, this will only work if the categories
+        # have already been sorted so that the most recent entries appear
+        # first.
         if self.sort_categories_by_date:
             self.entries = CategoryManager(
-                sorted(self.entries.items(), 
-                       key=lambda x: getattr(x[1][0], 'date'), 
-                       reverse=True))
-
-        self.entries.sort_entries()
+                dict(sorted(self.entries.items(), 
+                       key=lambda x: getattr(x[1]['entries'][0], 'date'), 
+                       reverse=True)))
 
     def _load_config(self, config_filepath, **kwargs):
         """Loads labnote configuration
@@ -173,6 +179,13 @@ class Notebook(object):
 
         # Default configuration options
         config = self._get_defaults()
+
+        # If requested, print default configuration and exit
+        if args['print_config']:
+            del config['entries']
+            config['categories'] = []
+            print(yaml.dump(config))
+            sys.exit()
 
         # If user specified a configuration filepath in the command, use that path
         if 'config' in args:
@@ -228,32 +241,35 @@ class Notebook(object):
         parser = ArgumentParser(description='Generate HTML lab notebook.')
 
         parser.add_argument('-c', '--config',
-                            help=('Configuration filepath. (Will use configuration' 
-                                'in $HOME/.config/labnote/config.yml, if it exists.)'))
+                            help=('Configuration filepath. (Will use configuration ' 
+                                 'in $HOME/.config/labnote/config.yml, if it exists.)'))
         parser.add_argument('-i', '--input-dirs', dest='input_dirs', nargs='+',
-                            help=('Input directory(s) containing notebook entries.'))
+                            help='Input directory(s) containing notebook entries.')
         parser.add_argument('-o', '--output-file', dest='output_file',
                             help=('Location to output notebook HTML to.'))
         parser.add_argument('-u', '--url-prefix', dest='url_prefix',
-                            help=('Prefix to add to each entry URL. (Default: "")'))
+                            help='Prefix to add to each entry URL. (Default: "")')
+        parser.add_argument('--print-config', dest='print_config',
+                            action='store_true',
+                            help=('Prints the default configuration for '
+                                  'Labnote to screen'))
 
         return parser
 
     # Default options
     def _get_defaults(self):
         """Gets a dictionary of default options"""
-
         return {
+            'title': 'Lab Notebook',
             'author': '',
-            'entries': {},
             'email':  '',
+            'entries': {},
             'exclude': [],
             'include_files':  ['*.html', '*.py', '*.ipynb'],
             'input_dirs': None,
             'output_file': None,
             'sort_categories_by_date': True,
             'theme': 'default',
-            'title': 'Lab Notebook',
             'url_prefix': ''
         }
 
