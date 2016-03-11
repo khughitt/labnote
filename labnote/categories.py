@@ -3,7 +3,6 @@ CategoryManager class definition
 """
 import fnmatch
 from collections import OrderedDict
-from operator import attrgetter,itemgetter
 
 class CategoryManager(OrderedDict):
     def __init__(self, categories):
@@ -50,13 +49,15 @@ class CategoryManager(OrderedDict):
             entries = entries + category['entries']
         return(entries)
 
-    def sort_entries(self):
+    def sort_entries(self, by_date):
         """Sorts entries within each category"""
-        # Within each category, show most recently modified entries first
+        # Sort by title or date
+        sort_key = 'date' if by_date else 'title'
+
         for category in self:
             self[category]['entries'] = sorted(self[category]['entries'],
-                                               key=attrgetter('date'),
-                                               reverse=True)    
+                                               key=lambda x: getattr(x, sort_key).lower(),
+                                               reverse=by_date)    
 
     def _get_defaults(self):
         """Gets default category metadata"""

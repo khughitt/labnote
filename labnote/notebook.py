@@ -36,6 +36,7 @@ class Notebook(object):
         self.user_js = config['user_js']
         self.url_prefix = config['url_prefix']
         self.sort_categories_by_date = config['sort_categories_by_date']
+        self.sort_entries_by_date = config['sort_entries_by_date']
 
         # Get current date string
         self.date = time.strftime('%Y/%m/%d')
@@ -46,7 +47,7 @@ class Notebook(object):
         # Find valid notebook entry directories
         self._parse_entries() 
 
-        #self._sort_entries()
+        self._sort_notebook_entries()
 
         # Create a Renderer instance
         self.renderer = HTMLRenderer(self.author, self.title, self.email,
@@ -138,12 +139,13 @@ class Notebook(object):
             if len(self.entries[category]['entries']) == 0:
                 del self.entries[category]
 
-    def _sort_entries(self):
+    def _sort_notebook_entries(self):
         """Sorts notebook entries"""
-        # Sort entries within each category by date
-        self.entries.sort_entries()
+        # Sort entries within each category
+        self.entries.sort_entries(by_date=self.sort_entries_by_date)
 
         # Sort categories by order of date last modified
+
         # NOTE 2016/03/07: Currently, this will only work if the categories
         # have already been sorted so that the most recent entries appear
         # first.
@@ -276,6 +278,7 @@ class Notebook(object):
             'input_dirs': None,
             'output_file': None,
             'sort_categories_by_date': True,
+            'sort_entries_by_date': False,
             'theme': 'default',
             'url_prefix': '',
             'user_css': '',

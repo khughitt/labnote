@@ -25,7 +25,8 @@ class Entry(object):
         self.filename = os.path.basename(filepath)
         self.dir_name = os.path.basename(os.path.dirname(filepath))
         self.date = self._get_date_modified()
-        self.url = os.path.join(url_prefix, filepath.replace(output_dir, ''))
+        self.url = os.path.join(url_prefix,
+                                filepath.replace(output_dir + os.path.sep, ''))
 
         # set title
         if 'title' in kwargs:
