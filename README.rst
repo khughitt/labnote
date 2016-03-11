@@ -306,6 +306,7 @@ Things to be added...
   entry titles.
 - Validate config file before running; print out warning messages for missing
   images.
+- Switch to something like [Skeleton](http://getskeleton.com/) for default layout.
 
 .. |Build Status| image:: https://travis-ci.org/khughitt/labnote.svg?branch=master
    :target: https://travis-ci.org/khughitt/labnote

@@ -72,8 +72,14 @@ class HTMLEntry(Entry):
         from bs4 import BeautifulSoup
 
         with open(self.filepath) as fp:
-            title = BeautifulSoup(fp, 'html.parser').title.string
-            return title if title is not None else self.filename
+            soup = BeautifulSoup(fp, 'html.parser')
+
+            # If no title is found, use filename instead
+            # TODO: print warning?
+            if soup.title is None or soup.title.string is None:
+                return self.filename
+            else:
+                return soup.title.string
 
 class GenericEntry(Entry):
     """Generic lab notebook entry"""
