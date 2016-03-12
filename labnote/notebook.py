@@ -239,6 +239,10 @@ class Notebook(object):
             print("Error: missing output filepath.")
             sys.exit()
 
+        # If only a single input_dir is specified, convert to list
+        if isinstance(config['input_dirs'], str):
+            config['input_dirs'] = [config['input_dirs']]
+
         return config
 
     def _get_args(self):
