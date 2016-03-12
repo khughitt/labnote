@@ -1,0 +1,8 @@
+categories:
+  First: foo
+  Second: bar
+include_files: '*'
+input_dirs: 'tests/notebooks/nb1/*'
+output_file: 'tests/notebooks/nb1/index.html'
+sort_categories_by_date: false
+

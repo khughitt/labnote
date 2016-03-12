@@ -1,8 +1,10 @@
 __pycache__
 *.egg-info
+*.html
 .cache
 .eggs
 build
 dist
 example/research/index.html
 example/research/resources
+tests/notebooks/*/resources
