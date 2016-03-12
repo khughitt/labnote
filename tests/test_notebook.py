@@ -2,29 +2,19 @@
 Notebook test code
 """
 class TestNotebook():
-    def test_load_config(self, notebook):
-        assert notebook.author == 'C. Darwin'
-        assert notebook.email == 'cdarwin@geolsoc.org.uk'
-        assert notebook.title == 'Lab Notebook'
-
-    def test_categories(self, notebook):
-        e = notebook.entries
+    def test_categories(self, nb1):
+        e = nb1.entries
 
         # Expected
         expected = {
-            'categories': ['Barnacles', 'Finches', 'Other'],
-            'descriptions': ['Finch research from the second voyage of HMS Beagle', 
-                             '', ''],
-            'images': ['images/a1417007h.jpg',
-                       'images/1854_Balanidae_F339.2_figlbp12.jpg',
-                       ''],
-            'patterns': [['finch', 'natural-selection'], 
-                         ['cirripede'], 
-                         []]
+            'categories': ['First', 'Second', 'Other'],
+            'descriptions': ['', '', ''],
+            'images': ['', '', ''],
+            'patterns': [['foo'], ['bar'], []]
         }
             
         # categories
-        assert sorted(list(e.keys())) == expected['categories'] 
+        assert list(e.keys()) == expected['categories']
 
         # category descriptions
         descriptions = [e[cat]['description'] for cat in e]
@@ -38,23 +28,18 @@ class TestNotebook():
         patterns = [e[cat]['patterns'] for cat in e]
         assert patterns == expected['patterns']
 
-    def test_entries(self, notebook):
-        e = notebook.entries
+    def test_entries(self, nb1):
+        e = nb1.entries
 
-        # get a flattened list of entries
-        entries = e.get_entries()
+        # Sorted alphanumerically
+        expected_titles = {
+            'First': ['1', '2', '3', 'a', 'b', 'c'],
+            'Second': ['one', 'three', 'two'],
+            'Other': ['misc'],
+        }
 
-        # dict of category names and number of entries in each
-        cats = {k:len(v['entries']) for k,v in notebook.entries.items()}
-        assert cats == {'Barnacles': 2, 'Finches': 3, 'Other': 1}
+        # check order of entries in each category
+        for category in e:
+            titles = [item.title for item in e[category]['entries']]
+            assert titles == expected_titles[category]
 
-        # check entry titles
-        entry_titles = [entry.title for entry in entries]
-        assert sorted(entry_titles) == [
-            'Cirripede systematics analysis',
-            'Comparison of cirripede morphology',
-            'Finch Beak Size Analysis',
-            'Molothrus parasitism',
-            'Natural Selection',
-            'foraging-strategies.py'
-        ]

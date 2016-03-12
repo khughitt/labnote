@@ -7,7 +7,6 @@ from collections import OrderedDict
 class CategoryManager(OrderedDict):
     def __init__(self, categories):
         # Extend category metadata with defaults
-
         for k,v in categories.items():
             # Call _get_defaults() for each iteration to avoid need to do
             # a deep copy of the dict
@@ -19,6 +18,11 @@ class CategoryManager(OrderedDict):
             elif isinstance(v, list):
                 # List of category patterns
                 category['patterns'] = v
+            elif isinstance(v, str):
+                # A single pattern
+                category['patterns'] = [v]
+            else:
+                raise IOError('Invalid category search pattern specified')
 
             categories[k] = category
 
