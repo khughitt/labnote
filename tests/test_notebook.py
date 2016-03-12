@@ -17,15 +17,15 @@ class TestNotebook():
         assert list(e.keys()) == expected['categories']
 
         # category descriptions
-        descriptions = [e[cat]['description'] for cat in e]
+        descriptions = [e[cat].description for cat in e]
         assert descriptions == expected['descriptions']
 
         # category images
-        images = [e[cat]['image'] for cat in e]
+        images = [e[cat].image for cat in e]
         assert images == expected['images']
 
         # category patterns
-        patterns = [e[cat]['patterns'] for cat in e]
+        patterns = [e[cat].patterns for cat in e]
         assert patterns == expected['patterns']
 
     def test_entry_date_sorting(self, nb1):
@@ -42,9 +42,8 @@ class TestNotebook():
 
         # check order of entries in each category
         for category in e:
-            titles = [item.title for item in e[category]['entries']]
+            titles = [item.title for item in e[category]]
             assert titles == expected_titles[category]
-
 
     def test_entry_alphanum_sorting(self, nb1_alphanum):
         """Tests labnote alphanumeric sorting"""
@@ -59,6 +58,6 @@ class TestNotebook():
 
         # check order of entries in each category
         for category in e:
-            titles = [item.title for item in e[category]['entries']]
+            titles = [item.title for item in e[category]]
             assert titles == expected_titles[category]
 

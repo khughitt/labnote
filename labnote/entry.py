@@ -34,6 +34,9 @@ class Entry(object):
         else:
             self.title = self._get_entry_title()
 
+    def __lt__(self, other):
+        """Allow entries to be sorted by date"""
+        return self.date < other.date
 
     @staticmethod
     def factory(filepath, output_dir, url_prefix, **kwargs):

@@ -136,7 +136,7 @@ class Notebook(object):
 
         # Remove any categories for which no entries were found
         for category in list(self.entries.keys()):
-            if len(self.entries[category]['entries']) == 0:
+            if len(self.entries[category]) == 0:
                 del self.entries[category]
 
     def _sort_notebook_entries(self):
@@ -148,7 +148,7 @@ class Notebook(object):
         if self.sort_categories_by_date:
             self.entries = CategoryManager(
                 sorted(self.entries.items(), 
-                       key=lambda x: x[1]['last_modified'],
+                       key=lambda x: x[1].last_modified,
                        reverse=True)
             )
 

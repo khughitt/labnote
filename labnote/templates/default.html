@@ -31,12 +31,12 @@
 {% for category in entries %}
 
 <!-- CATEGORY -->
-{% if entries[category]['image'] != '' -%}
+{% if entries[category].image != '' -%}
 {% set img_counter = img_counter + 1 %}
 <div class='category-container'>
     {% if img_counter % 2 == 1 -%}
     <div class='left-image'>
-        <img class='category-image' src='{{ entries[category]["image"] }}' />
+        <img class='category-image' src='{{ entries[category].image }}' />
     </div>
     {% endif -%}
 {% endif -%}
@@ -44,7 +44,7 @@
     <!-- ENTRIES -->
     <h2 class='category-header'>{{ category }}</h2>
     <ul class='category'>
-        {% for entry in entries[category]['entries'] -%}
+        {% for entry in entries[category] -%}
         <li>
             <time>{{ entry["date"].strftime("%Y/%m/%d") }}</time>
             <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
@@ -54,10 +54,10 @@
 </div>
 {% if img_counter % 2 == 0 -%}
 <div class='right-image'>
-    <img class='category-image' src='{{ entries[category]["image"] }}' />
+    <img class='category-image' src='{{ entries[category].image }}' />
 </div>
 {% endif -%}
-{% if entries[category]['image'] != '' -%}
+{% if entries[category].image != '' -%}
 </div>
 <div style='clear:both'></div>
 {% endif -%}
