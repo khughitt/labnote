@@ -2,15 +2,15 @@
 Notebook test code
 """
 class TestNotebook():
-    def test_categories(self, nb1):
+    def test_category_date_sorting(self, nb1):
         e = nb1.entries
 
         # Expected
         expected = {
-            'categories': ['First', 'Second', 'Other'],
+            'categories': ['Second', 'First', 'Other'],
             'descriptions': ['', '', ''],
             'images': ['', '', ''],
-            'patterns': [['foo'], ['bar'], []]
+            'patterns': [['bar'], ['foo'], []]
         }
             
         # categories
@@ -28,8 +28,27 @@ class TestNotebook():
         patterns = [e[cat]['patterns'] for cat in e]
         assert patterns == expected['patterns']
 
-    def test_entries(self, nb1):
+    def test_entry_date_sorting(self, nb1):
+        """Tests labnote date-sorting (default for nb1)"""
+        # files were touched in alphanumeric order, so they should appear in
+        # reverse-alphanumeric order
+        expected_titles = {
+            'First': ['c', 'b', 'a', '3', '2', '1'],
+            'Other': ['misc'],
+            'Second': ['two', 'three', 'one']
+        }
+
         e = nb1.entries
+
+        # check order of entries in each category
+        for category in e:
+            titles = [item.title for item in e[category]['entries']]
+            assert titles == expected_titles[category]
+
+
+    def test_entry_alphanum_sorting(self, nb1_alphanum):
+        """Tests labnote alphanumeric sorting"""
+        e = nb1_alphanum.entries
 
         # Sorted alphanumerically
         expected_titles = {

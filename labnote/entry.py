@@ -1,8 +1,8 @@
 """
 Labnote base Entry class.
 """
-import datetime
 import os
+from datetime import datetime
 
 class Entry(object):
     """Base notebook Entry class"""
@@ -24,7 +24,7 @@ class Entry(object):
         self.filepath = filepath
         self.filename = os.path.basename(filepath)
         self.dir_name = os.path.basename(os.path.dirname(filepath))
-        self.date = self._get_date_modified()
+        self.date = datetime.fromtimestamp(os.path.getmtime(self.filepath))
         self.url = os.path.join(url_prefix,
                                 filepath.replace(output_dir + os.path.sep, ''))
 
@@ -55,12 +55,6 @@ class Entry(object):
             # Everything else
             return GenericEntry(filepath, output_dir, url_prefix,
                     **kwargs)
-
-
-    def _get_date_modified(self):
-        """Determines the date that the file was last modified"""
-        mtime = os.path.getmtime(self.filepath)
-        return datetime.datetime.fromtimestamp(mtime).strftime('%Y/%m/%d')
 
 class HTMLEntry(Entry):
     """HTML lab notebook entry"""

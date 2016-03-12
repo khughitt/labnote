@@ -145,15 +145,12 @@ class Notebook(object):
         self.entries.sort_entries(by_date=self.sort_entries_by_date)
 
         # Sort categories by order of date last modified
-
-        # NOTE 2016/03/07: Currently, this will only work if the categories
-        # have already been sorted so that the most recent entries appear
-        # first.
         if self.sort_categories_by_date:
             self.entries = CategoryManager(
-                dict(sorted(self.entries.items(), 
-                       key=lambda x: getattr(x[1]['entries'][0], 'date'), 
-                       reverse=True)))
+                sorted(self.entries.items(), 
+                       key=lambda x: x[1]['last_modified'],
+                       reverse=True)
+            )
 
     def _load_config(self, config_filepath, **kwargs):
         """Loads labnote configuration

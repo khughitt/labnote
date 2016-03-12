@@ -3,9 +3,14 @@ CategoryManager class definition
 """
 import fnmatch
 from collections import OrderedDict
+from datetime import datetime
 
 class CategoryManager(OrderedDict):
     def __init__(self, categories):
+        # If passed a list of tuples, covert to OrderedList first
+        if isinstance(categories, list):
+            categories = OrderedDict(categories)
+
         # Extend category metadata with defaults
         for k,v in categories.items():
             # Call _get_defaults() for each iteration to avoid need to do
@@ -46,6 +51,9 @@ class CategoryManager(OrderedDict):
             category = self._get_category(entry)
         self[category]['entries'].append(entry)
 
+        if self[category]['last_modified'] < entry.date:
+            self[category]['last_modified'] = entry.date
+
     def get_entries(self):
         """Returns a flattened list of all entries"""
         entries = []
@@ -59,9 +67,11 @@ class CategoryManager(OrderedDict):
         sort_key = 'date' if by_date else 'title'
 
         for category in self:
-            self[category]['entries'] = sorted(self[category]['entries'],
-                                               key=lambda x: getattr(x, sort_key).lower(),
-                                               reverse=by_date)    
+            self[category]['entries'] = sorted(
+                self[category]['entries'],
+                key=lambda x: str(getattr(x, sort_key)).lower(),
+                reverse=by_date
+            )
 
     def _get_defaults(self):
         """Gets default category metadata"""
@@ -69,5 +79,6 @@ class CategoryManager(OrderedDict):
            'entries': [], 
             'patterns': [],
             'description': "",
-            'image': ""
+            'image': "",
+            'last_modified': datetime.fromtimestamp(0)
         }

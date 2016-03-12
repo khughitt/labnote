@@ -46,7 +46,7 @@
     <ul class='category'>
         {% for entry in entries[category]['entries'] -%}
         <li>
-            <time>{{ entry["date"] }}</time>
+            <time>{{ entry["date"].strftime("%Y/%m/%d") }}</time>
             <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
         </li>
     {% endfor -%}
