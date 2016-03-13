@@ -7,7 +7,6 @@ Note: When running tests in a virtualenv container, be sure to install py.test
 import os
 import pytest
 import time
-from pathlib import Path
 from labnote import Notebook
 
 @pytest.fixture(scope="session")
@@ -21,12 +20,14 @@ def nb1(tmpdir_factory):
     # then resort by title to test both sort types.
     base_dir = 'tests/notebooks/nb1/foo'
     for x in sorted(os.listdir(base_dir)):
-        Path(os.path.join(base_dir, x)).touch()
+        # Python 3.4+
+        #pathlib.Path(os.path.join(base_dir, x)).touch()
+        os.utime(os.path.join(base_dir, x), None)
         time.sleep(1)
 
     base_dir = 'tests/notebooks/nb1/bar'
     for x in sorted(os.listdir(base_dir)):
-        Path(os.path.join(base_dir, x)).touch()
+        os.utime(os.path.join(base_dir, x), None)
         time.sleep(1)
 
     return Notebook(conf, output_file=outfile)
