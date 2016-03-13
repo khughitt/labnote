@@ -1,0 +1,70 @@
+Installation
+------------
+
+Requirements
+~~~~~~~~~~~~
+
+To use labnote, you must have a recent version of 
+`Python (>=3.3)`<https://www.python.org/>`__) available on your machine.
+
+Additionally, labnote requires the following Python libraries:
+
+-  `Beautiful Soup 4 <http://www.crummy.com/software/BeautifulSoup/>`__
+-  `Jinja2 <http://jinja.pocoo.org/docs/dev/>`__
+-  `PyYAML <http://pyyaml.org/>`__
+
+If you are using pip to install labnote, all of the required
+dependencies should be automatically installed for you.
+
+Labnote is currently aimed at supporting Linux and OS X setups.
+
+Installing labnote
+~~~~~~~~~~~~~~~~~~
+
+To install labnote using
+`pip <https://docs.python.org/3.5/installing/index.html>`__, run:
+
+::
+
+    pip install labnote
+
+Testing installation
+~~~~~~~~~~~~~~~~~~~~
+
+To generate the example notebook, cd to the labnote source directory and
+run:
+
+::
+
+    labnote -c example/example.config.yml \
+        -i example/research/*/*           \
+        -o example/research/index.html
+
+A file named ``index.html`` should be outputted to the ``example/``
+directory and should look something like what is shown in the screenshot
+above.
+
+Automating notebook generation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Labnote can be easily automated using 
+`Cron <https://en.wikipedia.org/wiki/Cron>`__. For example, to have labnote
+regenerate your lab notebook once a day, run ``crontab -e`` to edit your
+user-level cron jobs, and add:
+
+::
+
+    @daily labnote
+
+If you have created a user configuration for labnote in
+``$HOME/.config/labnote/config.yml``, then you are all set. Otherwise simply
+add whatever options you would use when calling Labnote from the command-line
+to the cronjob, e.g.:
+
+::
+
+    @daily labnote -c /path/to/config.yml
+
+For more information on how to create and customize cron jobs on your system,
+see the `Ubuntu Cron Tutorial <https://help.ubuntu.com/community/CronHowto>`__.
+
