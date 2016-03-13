@@ -1,8 +1,4 @@
 /** Lab notebook styles */
-body {
-    text-align: center;
-}
-
 /** 
  * Gradient horizontal ruler
  * http://jsfiddle.net/chriscoyier/GaEzp/35/ 
@@ -19,66 +15,47 @@ hr {
 
 /** Header */
 #header {
-    margin: 0 auto;
-    padding: 25px 0;
     text-align: center;
+    margin-top: 1.5rem;
 }
 #header h1 {
-    font-family: "Droid sans mono", "monospace", sans-serif;
-    font-size: 72px;
-    /**color: #1C3F5F;
-    text-shadow: #999 2px 2px 3px;*/
-}
-#header h2 {
-    font-family: "Lato", ubuntu, sans-serif;
-    font-size: 30px;
+    font-family: monospace, sans-serif;
+    font-size: 5em;
+    font-weight: 500;
 }
 
-/** Main contents */
-#main {
-    width: 670px;
-    text-align: left;
-    margin: auto;
+#header h1, h3 {
+    margin: 0;
+    line-height: 1.1em;
+}
+#last-update {
+    font-size: 1.2em;
 }
 
 /** Category */
 .category-header {
-    /*font-family: ubuntu, verdana, sans-serif;*/
     font-family: 'Pacifico', cursive;
-    font-weight: 500;
-    font-size: 32px;
+    font-size: 2.3em;
     color: #3C3C3C;
-    margin: 25px 0 5px 0;
     text-shadow: #cccccc 5px 5px 15px;
 }
-.category-container > div {
-    display:inline-block;
-    vertical-align:middle;
-    width: 68%;
+.category-image {
+    max-width: 100%;
 }
-.category-container > div.left-image, .category-container > div.right-image {
-    width: 30%;
+
+/** Entry **/
+ul {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 1.3em;
+    list-style: none;
 }
 .category {
-    line-height: 1.5em;
+    line-height: 1rem;
     color: #404040;
 }
-.category-container .category-image {
-    max-height: 200px;
-    max-width: 200px;
-}
-
-.right-image > .category-image {
-    float: right;
-}
-/*.left-image + div > ul {*/
-/*    float: right;*/
-/*}*/
-
-/** Notebook entry */
 .category time {
     font-family: 'courier new', monospace;
-    margin-right: 10px;
+    margin-right: 1.5rem;
 }
 
 /** External link icons **/
@@ -91,3 +68,4 @@ img.slideshow {
 /** Link styles */
 a, a:visited { color: #404040; text-decoration: none; }
 a:hover, a:visited:hover { color: #ff5900; }
+

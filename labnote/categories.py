@@ -23,11 +23,12 @@ class CategoryManager(OrderedDict):
             for name,settings in categories.items():
                 # Dict of category metadata
                 if isinstance(settings, dict):
-                    kwargs = settings
                     patterns = settings['patterns']
+                    kwargs = settings
+                    del kwargs['patterns']
                 else:
-                    kwargs = {}
                     patterns = settings
+                    kwargs = {}
 
                 # check to make sure patterns isn't a single string
                 if isinstance(patterns, str):

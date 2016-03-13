@@ -299,14 +299,12 @@ Things to be added...
   with repos.
 - Allow sorting of categories by order in settings (default), name, or
   date-modified.
-- Allow sorting of entries by name or date modified.
 - Add option to show entries in a "journal mode" with all entries displayed
   together, sorted from most recent to oldest. Category divisions can either be
   hidden entirely, or displayed as (colored) tags to the right side of the
   entry titles.
 - Validate config file before running; print out warning messages for missing
   images.
-- Switch to something like [Skeleton](http://getskeleton.com/) for default layout.
 
 .. |Build Status| image:: https://travis-ci.org/khughitt/labnote.svg?branch=master
    :target: https://travis-ci.org/khughitt/labnote

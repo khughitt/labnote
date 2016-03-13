@@ -3,10 +3,11 @@
 <head>
     <title>{{ author }} - {{ title }}</title>
     <meta charset="utf-8" />
-    <link rel='stylesheet' href='resources/css/reset.css' />
+    <link rel='stylesheet' href='resources/css/normalize.css' />
+    <link rel='stylesheet' href='resources/css/skeleton.css' />
     <link rel='stylesheet' href='resources/css/default.css' />
-    <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Lato' />
     <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Pacifico' />
+    <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Ubuntu' />
     {% if user_css != '' -%}
     <link rel='stylesheet' type='text/css' href='{{ user_css }}' />
     {% endif -%}
@@ -15,13 +16,13 @@
     {% endif -%}
 </head>
 <body>
-<div id='main'>
+<div class="container">
 
 <!-- HEADER -->
 <div id='header'>
     <h1>{{ title }}</h1>
-    <a href='mailto: {{ email }}'><h2>{{ author }}</h2></a>
-    <h4>Last update: {{ date }}</h4>
+    <a href='mailto: {{ email }}'><h3>{{ author }}</h3></a>
+    <span id='last-update'>Last update: {{ date }}</span>
 </div>
 <hr />
 
@@ -30,41 +31,49 @@
 <!-- NOTEBOOK BEGIN -->
 {% for category in entries %}
 
-<!-- CATEGORY -->
 {% if entries[category].image != '' -%}
-{% set img_counter = img_counter + 1 %}
-<div class='category-container'>
-    {% if img_counter % 2 == 1 -%}
-    <div class='left-image'>
-        <img class='category-image' src='{{ entries[category].image }}' />
-    </div>
-    {% endif -%}
+    {% set img_counter = img_counter + 1 %}
 {% endif -%}
-<div>
-    <!-- ENTRIES -->
-    <h2 class='category-header'>{{ category }}</h2>
-    <ul class='category'>
-        {% for entry in entries[category] -%}
-        <li>
-            <time>{{ entry["date"].strftime("%Y/%m/%d") }}</time>
-            <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
-        </li>
-    {% endfor -%}
-    </ul>
-</div>
-{% if img_counter % 2 == 0 -%}
-<div class='right-image'>
-    <img class='category-image' src='{{ entries[category].image }}' />
-</div>
-{% endif -%}
-{% if entries[category].image != '' -%}
-</div>
-<div style='clear:both'></div>
-{% endif -%}
-{% endfor -%}
-</ul>
 
-<br /><br />
+<!-- CATEGORY -->
+<div class='row'>
+    <!-- left column -->
+    <div class="two columns">
+        {% if entries[category].image != '' and img_counter % 2 == 1 -%}
+        <div class='left-image'>
+            <img class='category-image' src='{{ entries[category].image }}' />
+        </div>
+        {% else -%}
+        &nbsp;
+        {% endif -%}
+    </div>
+
+    <!-- middle column -->
+    <div class='eight columns'>
+        <h2 class='category-header'>{{ category }}</h2>
+        <ul class='category'>
+            {% for entry in entries[category] -%}
+            <li>
+                <time>{{ entry["date"].strftime("%Y/%m/%d") }}</time>
+                <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
+            </li>
+            {% endfor -%}
+        </ul>
+    </div>
+
+    <!-- right column -->
+    <div class='two columns'>
+        {% if entries[category].image != '' and img_counter % 2 == 0 -%}
+        <div class='right-image'>
+            <img class='category-image' src='{{ entries[category].image }}' />
+        </div>
+        <!--<div style='clear:both'></div>-->
+        {% else -%}
+        &nbsp;
+        {% endif -%}
+    </div>
+</div>
+{% endfor -%}
 
 </div>
 </body>
