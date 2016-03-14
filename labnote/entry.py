@@ -54,6 +54,10 @@ class Entry(object):
             # Python scripts
             return PythonEntry(filepath, output_dir, url_prefix,
                     **kwargs)
+        elif ext == '.ipynb':
+            # IPython notebook
+            return JupyterEntry(filepath, output_dir, url_prefix,
+                    **kwargs)
         else:
             # Everything else
             return GenericEntry(filepath, output_dir, url_prefix,
@@ -117,4 +121,22 @@ class PythonEntry(Entry):
         else:
             return self.filename
 
+class JupyterEntry(Entry):
+    """Jupyter/IPython notebook entry"""
+    def __init__(self, filepath, output_dir, url_prefix, **kwargs):
+        """Creates a new JupyterEntry instance."""
+        super().__init__(filepath, output_dir, url_prefix, **kwargs)
 
+    def _get_entry_title(self):
+        """Determine title to use for the specified notebook entry"""
+        import json
+
+        with open(self.filepath) as fp:
+            contents = json.load(fp)
+            metadata = contents['metadata']
+
+            # If no title is found, use filename
+            if 'labnote' in metadata and 'title' in metadata['labnote']:
+                return metadata['labnote']['title']
+            else:
+                return self.filename.replace('.ipynb', '')
