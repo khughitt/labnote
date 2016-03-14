@@ -27,6 +27,7 @@ class Notebook(object):
         self.author = config['author']
         self.email = config['email']
         self.exclude = config['exclude']
+        self.external = config['external']
         self.title = config['title']
         self.input_dirs = config['input_dirs']
         self.output_file = config['output_file']
@@ -124,9 +125,26 @@ class Notebook(object):
                 if filename in metadata.keys():
                     kwargs = metadata[filename]
 
+            # Add filepath, output_dir, and url_prefix to kwargs
+            kwargs['filepath'] = filepath
+            kwargs['output_dir'] = output_dir
+            kwargs['url_prefix'] = self.url_prefix
+
             # Create a new notebook Entry instance
-            entry = Entry.factory(filepath, output_dir, self.url_prefix,
-                                  **kwargs)
+            entry = Entry.factory(**kwargs)
+
+            # Add entry
+            if 'category' in kwargs:
+                self.entries.add_entry(entry, kwargs['category'])
+            else:
+                self.entries.add_entry(entry)
+
+        # Add any external entries
+        for name in self.external:
+            kwargs = self.external[name]
+            kwargs['title'] = name
+
+            entry = Entry.factory(**kwargs)
 
             # Add entry
             if 'category' in kwargs:
@@ -275,6 +293,7 @@ class Notebook(object):
             'email':  '',
             'entries': {},
             'exclude': [],
+            'external': {},
             'include_files':  ['*.html', '*.py', '*.ipynb'],
             'input_dirs': None,
             'output_file': None,

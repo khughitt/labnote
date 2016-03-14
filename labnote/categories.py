@@ -53,7 +53,13 @@ class CategoryManager(OrderedDict):
     def add_entry(self, entry, category=None):
         """Adds a single entry to the CategoryManager"""
         if category is None:
+            # if no category is specified, check to see if entry matches
+            # any of the known category search patterns
             category = self._get_category(entry)
+        elif category not in self:
+            # for external entries, category may not yet exist
+            self[category] = Category(category, [])
+
         self[category].append(entry)
 
     def get_entries(self):

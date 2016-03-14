@@ -230,7 +230,7 @@ etc:
     README.html:
       title: Custom Title
       description: Description of the notebook entry
-      external:
+      links:
         - http://www.google.com
         - research/extra/presentation.ppt
 
@@ -244,7 +244,7 @@ Contributing
 ~~~~~~~~~~~~
 
 The project is just getting started and is changing rapidly.
-`Let me know<mailto:khughitt@umd.edu>`__ if you have suggestions or
+`Let me know <mailto:khughitt@umd.edu>`__ if you have suggestions or
 would like to contribute.
 
 Running tests

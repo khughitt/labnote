@@ -5,7 +5,7 @@ Contributing
 ~~~~~~~~~~~~
 
 The project is just getting started and is changing rapidly.
-`Let me know<mailto:khughitt@umd.edu>`__ if you have suggestions or
+`Let me know <mailto:khughitt@umd.edu>`__ if you have suggestions or
 would like to contribute.
 
 Running tests

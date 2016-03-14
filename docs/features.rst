@@ -38,7 +38,7 @@ etc:
     README.html:
       title: Custom Title
       description: Description of the notebook entry
-      external:
+      links:
         - http://www.google.com
         - research/extra/presentation.ppt
 

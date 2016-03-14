@@ -53,8 +53,13 @@
         <h2 class='category-header'>{{ category }}</h2>
         <ul class='category'>
             {% for entry in entries[category] -%}
+            {% if entry["date"].timestamp() > 0 -%}
+                {% set entry_time = entry["date"].strftime("%Y/%m/%d") -%}
+            {% else -%}
+                {% set entry_time = "-" -%}
+            {% endif -%}
             <li>
-                <time>{{ entry["date"].strftime("%Y/%m/%d") }}</time>
+                <time>{{ entry_time }}</time>
                 <a href='{{ entry["url"] }}'>{{ entry["title"] }}</a>
             </li>
             {% endfor -%}
