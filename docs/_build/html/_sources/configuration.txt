@@ -1,10 +1,12 @@
 Configuration
--------------
+=============
 
-Labnote settings are controlled can be specified either via the
-command-line at run-time (e.g.
-``labnote -i /some/path/* -o /output/dir``), or using a
-`YAML <http://yaml.org/>`__ config file, or both.
+Overview
+--------
+
+Labnote settings can be specified either via the command-line at run-time (e.g.
+``labnote -i /some/path/* -o /output/dir``), or using a `YAML
+<http://yaml.org/>`__ config file, or both.
 
 By default, Labnote looks for a file named ``config.yml`` located in
 ``$HOME/.config/labnote/``. If this file exists, then it will be used
@@ -62,6 +64,20 @@ to setup. It works best if you can normalize your directory names such
 that related analyses all include a similar component (e.g.
 'xx-network-analysis').
 
-If that is not possible or convenient, Labnote also supports
-manually specifying a projects categorization using hidden `.labnote` metafiles
-inside each project directory.
+If that is not possible or convenient, Labnote also supports manually
+specifying a projects categorization using hidden `.labnote` metafiles inside
+each project directory.
+
+The ``--print-config`` option can be used to generate an empty config file
+which you can then customize to your liking, e.g.:
+
+::
+
+    mkdir -p $HOME/.config/labnote
+    labnote --print-config > $HOME/.config/labnote/config.yml
+
+Configuration Options
+---------------------
+
+Below is a complete list of Labnote configuration options and how they are
+expected to be used.

@@ -69,7 +69,7 @@ Requirements
 ~~~~~~~~~~~~
 
 To use labnote, you must have a recent version of 
-`Python (>=3.3)`<https://www.python.org/>`__) available on your machine.
+`Python (>=3.3) <https://www.python.org/>`__) available on your machine.
 
 Additionally, labnote requires the following Python libraries:
 
@@ -138,7 +138,7 @@ Configuration
 Notebook configuration
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Labnote settings are controlled can be specified either via the
+Labnote settings can be specified either via the
 command-line at run-time (e.g.
 ``labnote -i /some/path/* -o /output/dir``), or using a
 `YAML <http://yaml.org/>`__ config file, or both.

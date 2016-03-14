@@ -1,11 +1,11 @@
 Installation
-------------
+============
 
 Requirements
-~~~~~~~~~~~~
+------------
 
 To use labnote, you must have a recent version of 
-`Python (>=3.3)`<https://www.python.org/>`__) available on your machine.
+`Python (>=3.3) <https://www.python.org/>`__) available on your machine.
 
 Additionally, labnote requires the following Python libraries:
 
@@ -19,19 +19,25 @@ dependencies should be automatically installed for you.
 Labnote is currently aimed at supporting Linux and OS X setups.
 
 Installing labnote
-~~~~~~~~~~~~~~~~~~
+------------------
 
-To install labnote using
+To install the latest stable version of Labnote using
 `pip <https://docs.python.org/3.5/installing/index.html>`__, run:
 
 ::
 
     pip install labnote
 
-Testing installation
-~~~~~~~~~~~~~~~~~~~~
+To install the most recent version of Labnote from Github, run:
 
-To generate the example notebook, cd to the labnote source directory and
+::
+
+    pip install git+https://github.com/khughitt/labnote
+
+Testing installation
+--------------------
+
+To generate the example notebook, ``cd`` to the labnote source directory and
 run:
 
 ::
@@ -40,12 +46,46 @@ run:
         -i example/research/*/*           \
         -o example/research/index.html
 
-A file named ``index.html`` should be outputted to the ``example/``
+If the installation is working, you should see output to the screen which looks
+like:
+
+::
+
+	- Using configuration: example/example.config.yml
+	- Starting Labnote
+	LOADING
+	- Scanning for notebook entries in example/research/animal_behavior/molothrus
+	- Scanning for notebook entries in example/research/barnacles/cirripede-morphology
+	- Scanning for notebook entries in example/research/barnacles/cirripede-taxonomy
+	- Scanning for notebook entries in example/research/finches/finch-beak-size-comparison
+	- Scanning for notebook entries in example/research/finches/finch-foraging-strategies
+	- Scanning for notebook entries in example/research/finches/natural-selection
+	- Scanning for notebook entries in example/research/images/1854_Balanidae_F339.2_figlbp12.jpg
+	- Scanning for notebook entries in example/research/images/a1417007h.jpg
+	- Scanning for notebook entries in example/research/private/notes.html
+	- Scanning for notebook entries in example/research/resources/css
+	- Scanning for notebook entries in example/research/resources/img
+	* Adding example/research/animal_behavior/molothrus/README.html
+	* Adding example/research/barnacles/cirripede-morphology/README.html
+	* Adding example/research/barnacles/cirripede-taxonomy/README.html
+	* Adding example/research/finches/finch-beak-size-comparison/beak_size.py
+	* Adding example/research/finches/finch-foraging-strategies/foraging-strategies.py
+	* Adding example/research/finches/natural-selection/thoughts.txt
+	- Finished
+	- Generating notebook HTML
+	- Saving notebook to example/research/index.html
+
+A file named ``index.html`` will be outputted ``example/``
 directory and should look something like what is shown in the screenshot
-above.
+from the overview section of the documentation.
+
+Now you are ready to configure Labnote for your own files.
 
 Automating notebook generation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
+
+The easiest way to keep your lab notebook up-to-date is to set Labnote so that
+it is run every day.
 
 Labnote can be easily automated using 
 `Cron <https://en.wikipedia.org/wiki/Cron>`__. For example, to have labnote

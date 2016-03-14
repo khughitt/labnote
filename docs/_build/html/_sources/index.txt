@@ -2,7 +2,7 @@ Welcome to Labnote's documentation!
 ===================================
 
 Overview
---------
+========
 
 Labnote is a flexible and lightweight tool for generating
 HTML-based `electronic lab
@@ -55,20 +55,14 @@ only a single no-frills theme, the
 `jinga2 <http://jinja.pocoo.org/docs/dev/>`__ templating system used by
 Labnote makes it trivial to create themes.
 
-Contents:
+Documentation
+=============
 
 .. toctree::
    :maxdepth: 2
 
-    installation
-    configuration
-    features
-    development
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   installation.rst
+   configuration.rst
+   features.rst
+   development.rst
 
