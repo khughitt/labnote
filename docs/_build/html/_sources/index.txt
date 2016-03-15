@@ -1,3 +1,5 @@
+:tocdepth: 3
+
 Welcome to Labnote's documentation!
 ===================================
 

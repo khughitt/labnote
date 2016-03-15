@@ -16,7 +16,7 @@ Additionally, labnote requires the following Python libraries:
 If you are using pip to install labnote, all of the required
 dependencies should be automatically installed for you.
 
-Labnote is currently aimed at supporting Linux and OS X setups.
+Labnote is currently aimed at supporting Windows, Linux, and OS X setups.
 
 Installing labnote
 ------------------
@@ -33,6 +33,31 @@ To install the most recent version of Labnote from Github, run:
 ::
 
     pip install git+https://github.com/khughitt/labnote
+
+To see a full list of options available for labnote, run ``labnote -h``:
+
+::
+
+    usage: labnote [-h] [-c CONFIG] [-i INPUT_DIRS [INPUT_DIRS ...]]
+                [-o OUTPUT_FILE] [-u URL_PREFIX] [--print-config]
+                [--user-css USER_CSS] [--user-js USER_JS]
+
+    Generate HTML lab notebook.
+
+    optional arguments:
+    -h, --help            show this help message and exit
+    -c CONFIG, --config CONFIG
+                            Configuration filepath. (Will use configuration in
+                            $HOME/.config/labnote/config.yml, if it exists.)
+    -i INPUT_DIRS [INPUT_DIRS ...], --input-dirs INPUT_DIRS [INPUT_DIRS ...]
+                            Input directory(s) containing notebook entries.
+    -o OUTPUT_FILE, --output-file OUTPUT_FILE
+                            Location to output notebook HTML to.
+    -u URL_PREFIX, --url-prefix URL_PREFIX
+                            Prefix to add to each entry URL. (Default: "")
+    --print-config        Prints the default configuration for Labnote to screen
+    --user-css USER_CSS   Custom stylesheet to use.
+    --user-js USER_JS     Custom javascript file to use.
 
 Testing installation
 --------------------

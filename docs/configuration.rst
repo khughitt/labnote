@@ -1,3 +1,5 @@
+.. _configuration:
+
 Configuration
 =============
 
@@ -81,3 +83,98 @@ Configuration Options
 
 Below is a complete list of Labnote configuration options and how they are
 expected to be used.
+
+Except for ``input_dirs`` and ``output_file``, all configuration parameters are
+optional.
+
+General options
+~~~~~~~~~~~~~~~
+
+- ``author`` Author name (string).
+- ``email`` Author contact email address (string).
+- ``title`` Lab notebook title (string).
+
+Files to include
+~~~~~~~~~~~~~~~~
+
+- ``input_dirs`` List of one or more absolute or relative directory paths which
+  should be scanned for files corresponding to notebook entries. Only those
+  filenames which match the patterns specified in the ``include_files`` option
+  described below will be added.
+- ``include_files``: List of filename wildcard expressions specifying the files
+  to be included in the notebook.
+- ``exclude`` List of strings indicating files which should not be included in
+  the notebook. If any part of a file's directory or filename matches a string
+  in the ``exclude`` list, it will be skipped.
+- ``external``: A dictionary containing one or more external links which should
+  be included as notebook entries. Each external entry must include a ``url``
+  key indicating where the entry can be accessed, and, optionally, a
+  ``category``.
+
+Example:
+
+.. code:: yaml
+
+    external:
+    'Interactive network visualization':
+        category: 'Shiny'
+        url: 'http://user.shinyapps.io/network-viz'
+    'Interactive time series viewer':
+        category: 'Shiny'
+        url: 'http://server.com:3838/time-series-viewer'
+
+Categories
+~~~~~~~~~~
+
+- ``categories`` List of dictionaries describing how entries should be grouped.
+
+For each category, a list of one or more patterns should be specified. When
+entries are added to the notebook, the entry directory and filenames will be
+compared against the category patterns, and the entry will be assigned to
+the first category that it matches, or else default to an "Other" category.
+
+In addition to the entry search patterns, each category may also include an
+image and description field, which may be used by themes during the notebook
+HTML generation.
+
+ Example:
+
+.. code:: yaml
+
+    categories:
+      'Network Analysis': ['network', 'edge-betweenness', 'topology']
+      'Differential Expression': 
+          patterns: ['diffexpr', 'dea']
+          image: 'resources/user/img/maplot.jpg'
+      'Regulatory Element Detection': 
+          patterns: ['motif', 'regulatory-elem', 'random-forest']
+          image: '2015/15-random-forest-gene-reg/output/motif_example.png'
+
+In the above example, for the first category, only the search patterns to be
+used for notebook entry membership determination are specified. The next two
+categories also specify and image to use.
+
+Appearance
+~~~~~~~~~~
+
+- ``theme`` String indicating the Labnote theme to be used for the rendered
+  notebook. Currently there is only one theme provided: "default".
+- ``sort_categories_by_date`` Boolean indicating whether the categories should
+  be sorted by the date of the most recent entry within each category.
+  (default: true)
+- ``sort_entries_by_date``: Boolean indicating whether the entries within each
+  category should be sorted by date. If true, entries within each category will
+  appear in decreasing order by date last modified, otherwise they will be
+  sorted alphanumerically. (default: false).
+
+Output
+~~~~~~
+
+- ``output_file``: Filepath where notebook should be written. Notebook resources
+(CSS, images, etc.) will also be copied to the directory containing the
+indicated output file.
+- ``url_prefix``: A string prefix to be prepended to each entry URL. This can be
+used, for example, to point to a remotely-hosted version of the notebook.
+- ``user_css``: Custom CSS file to include in the output HTML (string).
+- ``user_js``: Custom JavaScript file to include in the output HTML (string).
+

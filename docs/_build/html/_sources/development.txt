@@ -4,9 +4,18 @@ Development
 Contributing
 ~~~~~~~~~~~~
 
-The project is just getting started and is changing rapidly.
-`Let me know<mailto:khughitt@umd.edu>`__ if you have suggestions or
-would like to contribute.
+There are a few different ways you can contribute to the development of
+Labnote. The easiest way is to simply fork the Labnote repo, add whatever
+fixes or functionality you would like, and submit a pull request with the
+changes.
+
+If you are adding new functionality, please be sure to write unit tests where
+relevant.
+
+If you have ideas or suggestions, but aren't able to implement them yourself,
+feel free to `contact me <mailto:khughitt@umd.edu>`__, or open up an issue with
+your idea or suggestion on the `Labnote Github repo
+<https://github.com/khughitt/labnote/issues>`__.
 
 Running tests
 ~~~~~~~~~~~~~
@@ -44,28 +53,9 @@ process:
 Note that virtualenvwrapper is not needed to run the tests, and the
 commands for using the base version of virtualenv are pretty similar.
 
-TODO
-~~~~
+Creating new themes
+~~~~~~~~~~~~~~~~~~~
 
-Things to be added...
+More on this later...
 
-- Should entries be added via .labnote files, even if they aren't detected in
-  the search paths? If so, may want to first add entries as-is, and then in a
-  second round, scan for .labnote files and update affected entries / add new
-  ones.
-- Switch to regexes for search path? (more flexible, but less simple...)
-- Add option to automatically generate README.html files for each README.md
-  found (check last modified date to determine whether file should be
-  regenerated.)
-- Check for git revision and link to repo if on Github
-- Add option to show short git commit hashes next to entries which associated
-  with repos.
-- Allow sorting of categories by order in settings (default), name, or
-  date-modified.
-- Add option to show entries in a "journal mode" with all entries displayed
-  together, sorted from most recent to oldest. Category divisions can either be
-  hidden entirely, or displayed as (colored) tags to the right side of the
-  entry titles.
-- Validate config file before running; print out warning messages for missing
-  images.
 
