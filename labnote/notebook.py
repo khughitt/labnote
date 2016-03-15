@@ -4,6 +4,7 @@ Notebook class definition
 import fnmatch
 import glob
 import os
+import platform
 import sys
 import time
 import yaml
@@ -225,11 +226,12 @@ class Notebook(object):
                 config_file = config_filepath
             else:
                 # Otherwise, load user config file if it exists
-                config_dir = os.path.expanduser("~/.config/labnote/")
-
                 # Windows
-                # USERPROFILE\Application Data\labnote\config.yml
-                # APPDATA\labnote\config.yml
+                if platform.system() == 'Windows':
+                    config_dir = os.path.join(os.environ['APPDATA'], 'labnote')
+                else:
+                    # Linux / OS X
+                    config_dir = os.path.expanduser("~/.config/labnote/")
 
                 # Check for config.yaml or config.yml
                 config_file = os.path.join(config_dir, 'config.yml')

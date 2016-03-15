@@ -80,7 +80,7 @@ Additionally, labnote requires the following Python libraries:
 If you are using pip to install labnote, all of the required
 dependencies should be automatically installed for you.
 
-Labnote is currently aimed at supporting Linux and OS X setups.
+Labnote is currently aimed at supporting Windows, Linux, and OS X setups.
 
 Installing labnote
 ~~~~~~~~~~~~~~~~~~

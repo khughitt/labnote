@@ -33,7 +33,7 @@ setup(
     maintainer_email="khughitt@umd.edu",
     name="labnote",
     packages=find_packages(),
-    platforms=["Linux", "Solaris", "Mac OS-X", "Unix"],
+    platforms=["Linux", "Solaris", "Mac OS-X", "Unix", "Windows"],
     provides=['labnote'],
     scripts=['bin/labnote'],
     zip_safe=False,
