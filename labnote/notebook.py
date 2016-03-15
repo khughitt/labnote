@@ -295,20 +295,21 @@ class Notebook(object):
         }
 
         for key in expected_types:
-            if not isinstance(config[key], accepted_type[key]):
+            if not isinstance(config[key], expected_types[key]):
                 parser.print_help()
                 print("Invalid argument specified for %s" % key)
                 sys.exit()
 
         # Check to make sure a valid theme was specified
         # TODO: modify to check directory of themes
-        if theme not in ['default']:
+        if config['theme'] not in ['default']:
             parser.print_help()
             print("Invalid theme specified.")
             sys.exit()
 
         # Check to make sure output directory exists
         output_dir = os.path.dirname(config['output_file'])
+
         if not os.path.isdir(output_dir):
             parser.print_help()
             print("Output directory (%s) does not exist!" % output_dir)
