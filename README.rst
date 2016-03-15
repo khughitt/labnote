@@ -296,6 +296,8 @@ Things to be added...
 - Add option to automatically generate README.html files for each README.md
   found (check last modified date to determine whether file should be
   regenerated.)
+- Add option to automatically convert ipynb files to HTML (use runipy)
+- Add option to use icons for entry links.
 - Check for git revision and link to repo if on Github
 - Add option to show short git commit hashes next to entries which associated
   with repos.
@@ -305,7 +307,12 @@ Things to be added...
   together, sorted from most recent to oldest. Category divisions can either be
   hidden entirely, or displayed as (colored) tags to the right side of the
   entry titles.
-- Print out warning messages for missing images.
+- Color output.
+- Add verbose option (default on?)
+    - Print out warning messages for missing images.
+    - Print out warning messages for missing titles.
+    - Print out message about excluded files
+
 
 .. |Build Status| image:: https://travis-ci.org/khughitt/labnote.svg?branch=master
    :target: https://travis-ci.org/khughitt/labnote

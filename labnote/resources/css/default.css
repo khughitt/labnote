@@ -53,9 +53,10 @@ li {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-bottom: auto;
 }
 .category {
-    line-height: 1rem;
+    line-height: 2.75rem;
     color: #404040;
 }
 .category time {
