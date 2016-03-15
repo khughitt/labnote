@@ -61,3 +61,13 @@ class TestNotebook():
             titles = [item.title for item in e[category]]
             assert titles == expected_titles[category]
 
+    def test_entry(self, nb1):
+        """Checks the values for a single entry"""
+        e =  nb1.entries['Second'][0]
+
+        assert e.dir_name == 'bar'
+        assert e.filename == 'two'
+        assert e.filepath == 'tests/notebooks/nb1/bar/two'
+        assert e.title == 'two'
+        assert e.url == 'tests/notebooks/nb1/bar/two'
+

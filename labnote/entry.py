@@ -3,6 +3,7 @@ Labnote Entry class definitions.
 """
 import os
 from datetime import datetime
+from urllib.parse import urljoin
 
 class Entry(object):
     """Base notebook Entry class"""
@@ -25,7 +26,7 @@ class Entry(object):
         self.filename = os.path.basename(self.filepath)
         self.dir_name = os.path.basename(os.path.dirname(self.filepath))
         self.date = datetime.fromtimestamp(os.path.getmtime(self.filepath))
-        self.url = os.path.join(
+        self.url = urljoin(
             kwargs['url_prefix'], 
             self.filepath.replace(kwargs['output_dir'] + os.path.sep, ''))
 

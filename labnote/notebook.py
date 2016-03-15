@@ -227,6 +227,10 @@ class Notebook(object):
                 # Otherwise, load user config file if it exists
                 config_dir = os.path.expanduser("~/.config/labnote/")
 
+                # Windows
+                # USERPROFILE\Application Data\labnote\config.yml
+                # APPDATA\labnote\config.yml
+
                 # Check for config.yaml or config.yml
                 config_file = os.path.join(config_dir, 'config.yml')
                 if not os.path.isfile(config_file):
