@@ -49,6 +49,11 @@ ul {
     font-size: 1.3em;
     list-style: none;
 }
+li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .category {
     line-height: 1rem;
     color: #404040;
