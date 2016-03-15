@@ -45,7 +45,7 @@ class CategoryManager(OrderedDict):
     def _get_category(self, entry, default='Other'):
         """Determines category for a given analysis"""
         for name,category in self.items():
-            if any(fnmatch.fnmatch(entry.dir_name, ("*%s*" % p)) for p in
+            if any(fnmatch.fnmatch(entry.url, ("*%s*" % p)) for p in
                     category.patterns):
                 return(name)
         return(default) 
