@@ -224,6 +224,9 @@ class Notebook(object):
             # constructor.
             if config_filepath is not None:
                 config_file = config_filepath
+                if not os.path.isfile(config_file):
+                    print("Invalid configuration path specified: %s" % args['config'])
+                    sys.exit()
             else:
                 # Otherwise, load user config file if it exists
                 # Windows
@@ -250,7 +253,20 @@ class Notebook(object):
         # Update with arguments specified to Notebook constructor
         config.update(kwargs)
 
-        # Check for required parameters
+        # For arguments which accept lists or strings, convert single string
+        # values into lists
+        for key in ['input_dirs', 'exclude', 'include_files']:
+            if isinstance(config[key], str):
+                config[key] = [config[key]]
+
+        # Validate configuration
+        self._check_config(config)
+
+        return config
+
+    def _check_config(self, config):
+        """Checks configuration to make sure it is valid"""
+        # Required arguments
         if 'input_dirs' not in config:
             parser.print_help()
             print("Error: missing input directory(s).")
@@ -260,11 +276,43 @@ class Notebook(object):
             print("Error: missing output filepath.")
             sys.exit()
 
-        # If only a single input_dir is specified, convert to list
-        if isinstance(config['input_dirs'], str):
-            config['input_dirs'] = [config['input_dirs']]
+        # Check for proper types
+        expected_types = {
+            'title': str,
+            'author': str,
+            'email':  str,
+            'exclude': list,
+            'external': dict,
+            'include_files': list,
+            'input_dirs': list,
+            'output_file': str,
+            'sort_categories_by_date': bool,
+            'sort_entries_by_date': bool,
+            'theme': str,
+            'url_prefix': str,
+            'user_css': str,
+            'user_js': str
+        }
 
-        return config
+        for key in expected_types:
+            if not isinstance(config[key], accepted_type[key]):
+                parser.print_help()
+                print("Invalid argument specified for %s" % key)
+                sys.exit()
+
+        # Check to make sure a valid theme was specified
+        # TODO: modify to check directory of themes
+        if theme not in ['default']:
+            parser.print_help()
+            print("Invalid theme specified.")
+            sys.exit()
+
+        # Check to make sure output directory exists
+        output_dir = os.path.dirname(config['output_file'])
+        if not os.path.isdir(output_dir):
+            parser.print_help()
+            print("Output directory (%s) does not exist!" % output_dir)
+            sys.exit()
 
     def _get_args(self):
         """Parses input and returns arguments"""

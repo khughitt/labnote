@@ -305,8 +305,7 @@ Things to be added...
   together, sorted from most recent to oldest. Category divisions can either be
   hidden entirely, or displayed as (colored) tags to the right side of the
   entry titles.
-- Validate config file before running; print out warning messages for missing
-  images.
+- Print out warning messages for missing images.
 
 .. |Build Status| image:: https://travis-ci.org/khughitt/labnote.svg?branch=master
    :target: https://travis-ci.org/khughitt/labnote
