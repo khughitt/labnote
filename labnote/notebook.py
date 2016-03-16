@@ -203,8 +203,7 @@ class Notebook(object):
 
         # If requested, print default configuration and exit
         if args['print_config']:
-            del config['entries']
-            print(yaml.dump(config))
+            self.print_config()
             sys.exit()
 
         # If user specified a configuration filepath in the command, use that path
@@ -359,6 +358,20 @@ class Notebook(object):
             'user_css': '',
             'user_js': ''
         }
+
+    def print_config(self):
+        """Prints an example config file which can be edited and used
+           as a starting point."""
+        config = {
+            'title': 'Lab Notebook',
+            'author': '',
+            'email': '',
+            'input_dirs': ['/var/www/research/one/*',
+                           '/var/www/research/two/*'],
+            'output_file': '/var/www/research/index.html',
+            'include_files':  ['*.html', '*.py']
+        }
+        print(yaml.dump(config, default_flow_style=False))
 
     def _ordered_load(self, stream, Loader=yaml.Loader,
                      object_pairs_hook=OrderedDict):
