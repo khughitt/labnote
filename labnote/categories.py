@@ -8,37 +8,42 @@ from datetime import datetime
 class CategoryManager(OrderedDict):
     def __init__(self, categories):
         # If passed a list of tuples, covert to OrderedList first
+        # This occurs after the object has been sorted.
         if isinstance(categories, list):
             categories = OrderedDict(categories)
 
-        # If this is the first time CategoryManager is being created, we need
-        # to initialize the Category instances from the relevant settings;
-        # otherwise (e.g. after sorting), we can simply call the parent
-        # constructor right away.
-        key = list(categories.keys())[0]
+        # If no categories were specifed in config, add "Other"
+        if len(categories) == 0:
+            categories['Other'] = Category('Other', [])
+        else: 
+            # If this is the first time CategoryManager is being created, we
+            # need to initialize the Category instances from the relevant
+            # settings; otherwise (e.g. after sorting), we can simply call the
+            # parent constructor right away.
+            key = list(categories.keys())[0]
 
-        if not isinstance(categories[key], Category):
+            if not isinstance(categories[key], Category):
 
-            # Extend category metadata with defaults
-            for name,settings in categories.items():
-                # Dict of category metadata
-                if isinstance(settings, dict):
-                    patterns = settings['patterns']
-                    kwargs = settings
-                    del kwargs['patterns']
-                else:
-                    patterns = settings
-                    kwargs = {}
+                # Extend category metadata with defaults
+                for name,settings in categories.items():
+                    # Dict of category metadata
+                    if isinstance(settings, dict):
+                        patterns = settings['patterns']
+                        kwargs = settings
+                        del kwargs['patterns']
+                    else:
+                        patterns = settings
+                        kwargs = {}
 
-                # check to make sure patterns isn't a single string
-                if isinstance(patterns, str):
-                    patterns = [patterns]
+                    # check to make sure patterns isn't a single string
+                    if isinstance(patterns, str):
+                        patterns = [patterns]
 
-                categories[name] = Category(name, patterns, **kwargs)
+                    categories[name] = Category(name, patterns, **kwargs)
 
-            # Add blank "Other" category
-            if 'Other' not in categories.keys():
-                categories['Other'] = Category(name, [])
+                # Add blank "Other" category
+                if 'Other' not in categories.keys():
+                    categories['Other'] = Category('Other', [])
 
         super().__init__(categories)
 

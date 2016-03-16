@@ -204,7 +204,6 @@ class Notebook(object):
         # If requested, print default configuration and exit
         if args['print_config']:
             del config['entries']
-            config['categories'] = []
             print(yaml.dump(config))
             sys.exit()
 
@@ -260,11 +259,11 @@ class Notebook(object):
                 config[key] = [config[key]]
 
         # Validate configuration
-        self._check_config(config)
+        self._check_config(config, parser)
 
         return config
 
-    def _check_config(self, config):
+    def _check_config(self, config, parser):
         """Checks configuration to make sure it is valid"""
         # Required arguments
         if 'input_dirs' not in config:
@@ -345,6 +344,7 @@ class Notebook(object):
         return {
             'title': 'Lab Notebook',
             'author': '',
+            'categories': [],
             'email':  '',
             'entries': {},
             'exclude': [],
