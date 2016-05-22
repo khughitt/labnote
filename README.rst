@@ -292,7 +292,6 @@ Things to be added...
   the search paths? If so, may want to first add entries as-is, and then in a
   second round, scan for .labnote files and update affected entries / add new
   ones.
-- Switch to regexes for search path? (more flexible, but less simple...)
 - Add option to automatically generate README.html files for each README.md
   found (check last modified date to determine whether file should be
   regenerated.)
@@ -312,7 +311,7 @@ Things to be added...
     - Print out warning messages for missing images.
     - Print out warning messages for missing titles.
     - Print out message about excluded files
-
+- Show entry descriptions as tooltips.
 
 .. |Build Status| image:: https://travis-ci.org/khughitt/labnote.svg?branch=master
    :target: https://travis-ci.org/khughitt/labnote

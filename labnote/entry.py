@@ -174,13 +174,17 @@ class ExternalEntry(object):
         self.dir_name = os.path.basename(os.path.dirname(url_path))
 
         # Attempt to determine the date last modified
-        conn = request.urlopen(self.url)
+        try:
+            conn = request.urlopen(self.url)
 
-        if 'last-modified' in conn.headers:
-            import email.utils as eut
-            self.date = eut.parsedate(conn.headers['last-modified'])
+            if 'last-modified' in conn.headers:
+                import email.utils as eut
+                self.date = eut.parsedate(conn.headers['last-modified'])
+            else:
+                # If date not specified, default to unix timestamp 0
+                self.date = datetime.fromtimestamp(0)
         else:
-            # If date not specified, default to unix timestamp 0
+            # If URL is not accessible, default to unix timestamp 0
             self.date = datetime.fromtimestamp(0)
 
     def _get_entry_title(self):
