@@ -180,7 +180,7 @@ class ExternalEntry(object):
 
             if 'last-modified' in conn.headers:
                 import email.utils as eut
-                self.date = datetime(*eut.parsedate(conn.headers['last-modified'][:6]))
+                self.date = datetime(*eut.parsedate(conn.headers['last-modified'])[:6])
             else:
                 # If date not specified, default to unix timestamp 0
                 self.date = datetime.fromtimestamp(0)
