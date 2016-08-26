@@ -1,0 +1,37 @@
+---
+# General information
+title: Lab Notebook
+author: V. Keith Hughitt 
+email: khughitt@umd.edu
+
+# Search path for notebook entries
+input_dirs:
+  - research/*
+  - research/*/*
+
+# Location where notebook HTML should be saved to
+output_file: research/index.html
+
+# File types to include
+include_files: ['*.html', '*.py', '*.ipynb']
+
+# Files to exclude
+exclude: ['private']
+
+# Research categories
+categories:
+  Co-expression analysis:
+    patterns: ['coex']
+    image: "images/coex-network.png"
+  Host-pathogen network analysis:
+    patterns: ['host-pat']
+    image: "images/hpi-network.png"
+  Exploratory Data Analysis:
+    patterns: ['exploratory']
+    image: "images/biplot.png"
+
+sort_categories_by_date: false
+
+# Notebook theme
+theme: default
+

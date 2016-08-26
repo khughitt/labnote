@@ -23,25 +23,23 @@ In short, it helps you go from something like this:
 
 ::
 
-    ├── animal_behavior
-    │   └── molothrus
-    │       └── README.html
-    ├── barnacles
-    │   ├── cirripede-morphology
+    ├── co-expression
+    │   ├── coex-clustering-comparison
     │   │   └── README.html
-    │   └── cirripede-taxonomy
+    │   ├── hsapiens-coex-network
+    │   │   └── README.html
+    │   └── lmajor-coex-network
     │       └── README.html
-    └── finches
-        ├── finch-beak-size-comparison
-        │   └── beak_size.py
-        ├── finch-foraging-strategies
-        │   └── foraging-strategies.py
-        └── natural-selection
-            └── thoughts.txt
+    ├── exploratory_data_analysis
+    │   ├── biplot_eda.ipynb
+    │   └── nmf_comparison.py
+    └── host-pathogen_networks
+        └── hpi-module-network
+            └── hpi_network_construction.py
 
 To something like this:
 
-.. figure:: docs/images/example_screenshot.png
+.. figure:: docs/images/example_screenshot_bioinf.png
    :alt: A simple lab notebook
 
 Labnote works by scanning a set of one or more directories for files
