@@ -93,17 +93,16 @@ To install labnote using
 Testing installation
 ~~~~~~~~~~~~~~~~~~~~
 
-To generate the example notebook, cd to the labnote source directory and
-run:
+To generate the example notebook, clone the labnote github repo and `cd` to
+the `examples/bioinformatics` directory and run:
 
 ::
 
-    labnote -c example/example.config.yml \
-        -i example/research/*/*           \
-        -o example/research/index.html
+    labnote -c example.config.yml \
+        -o research/index.html
 
-A file named ``index.html`` should be outputted to the ``example/``
-directory and should look something like what is shown in the screenshot
+A file named ``index.html`` should be outputted to the ``research/``
+sub-directory and should look something like what is shown in the screenshot
 above.
 
 Automating notebook generation
