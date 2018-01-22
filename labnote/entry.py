@@ -159,7 +159,7 @@ class ExternalEntry(object):
         """Creates a new ExternalEntry instance."""
         from urllib import request
         from urllib.parse import urlsplit
-        from urllib.request import HTTPError
+        from urllib.request import HTTPError,URLError
 
         # Required variables - title & url
         self.title = kwargs['title']
@@ -184,7 +184,7 @@ class ExternalEntry(object):
             else:
                 # If date not specified, default to unix timestamp 0
                 self.date = datetime.fromtimestamp(0)
-        except HTTPError:
+        except (HTTPError, URLError, ConnectionRefusedError):
             # If URL is not accessible, default to unix timestamp 0
             self.date = datetime.fromtimestamp(0)
 
