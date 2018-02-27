@@ -275,7 +275,7 @@ process:
 
 ::
 
-    mkvirtualenv --python=python3.3 labnote33
+    mkvirtualenv --python=python3.5 labnote35
 
 Note that virtualenvwrapper is not needed to run the tests, and the
 commands for using the base version of virtualenv are pretty similar.
